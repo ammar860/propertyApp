@@ -19,7 +19,7 @@ export default (to, from, next) => {
         title: "None",
         roles: "None",
       });
-      next("/user/login");
+      next("/app/user/login");
     }
   } else {
     next();
