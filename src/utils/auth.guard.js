@@ -1,11 +1,10 @@
-import { isAuthGuardActive } from "../constants/config";
 import { setCurrentUser, getCurrentUser } from ".";
 
 var user = getCurrentUser();
 
 export default (to, from, next) => {
   if (to.matched.some((record) => record.meta.loginRequired)) {
-    if (user != null) {
+    if (user) {
       const roleArrayHierarchic = to.matched
         .filter((x) => x.meta.roles)
         .map((x) => x.meta.roles);
