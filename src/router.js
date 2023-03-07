@@ -10,7 +10,7 @@ const routes = [
   {
     path: "/",
     component: () => import("./views/user/Login.vue"),
-    redirect: `${adminRoot}/user/login`,
+    redirect: `/user/login`,
   },
   {
     path: adminRoot,
@@ -142,4 +142,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach(AuthGuard);
+
+
 export default router;
