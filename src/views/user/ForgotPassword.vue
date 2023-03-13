@@ -10,9 +10,6 @@
           </p>
         </div>
         <div class="form-side">
-          <router-link to="/">
-            <span class="logo-single" />
-          </router-link>
           <h6 class="mb-4">{{ $t("user.forgot-password") }}</h6>
           <b-form
             @submit.prevent="formSubmit"

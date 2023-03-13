@@ -7,7 +7,7 @@
     }"
     no-body
   >
-    <div class="pl-2 d-flex flex-grow-1 min-width-zero">
+    <div class="d-flex flex-grow-1 min-width-zero">
       <div
         class="
           card-body

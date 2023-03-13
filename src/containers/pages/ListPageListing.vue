@@ -66,17 +66,17 @@
           :id="item.id"
         >
           <b-row style="color:#6FB327;" v-if="index == 0">
-            <b-colxx xxs="1" class="mb-3" style="padding-inline-start: 2%;">Id</b-colxx>
+            <b-colxx xxs="1" class="mb-3" style="padding-inline-start: 2.5%;">Id</b-colxx>
             <b-colxx xxs="1" class="mb-3">Main Image</b-colxx>
             <b-colxx xxs="1" class="mb-3">Title</b-colxx>
             <b-colxx xxs="1" class="mb-3">Type</b-colxx>
             <b-colxx xxs="1" class="mb-3">Address</b-colxx>
             <b-colxx xxs="1" class="mb-3">Price</b-colxx>
             <b-colxx xxs="1" class="mb-3">Responsible Agent</b-colxx>
-            <b-colxx xxs="1" class="mb-3">Last Updated</b-colxx>
-            <b-colxx xxs="1" class="mb-3">Creation Date</b-colxx>
-            <b-colxx xxs="1" class="mb-3">Created By</b-colxx>
-            <b-colxx xxs="1" class="mb-3">Status</b-colxx>
+            <b-colxx xxs="1" class="mb-3" style="padding-inline-start: 1.5%;">Last Updated</b-colxx>
+            <b-colxx xxs="1" class="mb-3" style="padding-inline-start: 1.5%;">Creation Date</b-colxx>
+            <b-colxx xxs="1" class="mb-3" style="padding-inline-start: 2%;">Created By</b-colxx>
+            <b-colxx xxs="1" class="mb-3" style="padding-inline-start: 2.5%;">Status</b-colxx>
             <b-colxx xxs="1" class="mb-3"></b-colxx>
           </b-row>
           <data-list-item
@@ -85,6 +85,7 @@
             :selected-items="selectedItems"
             @toggle-item="toggleItem"
             v-contextmenu:contextmenu
+            style="height:70px;"
           />
         </b-colxx>
       </b-row>

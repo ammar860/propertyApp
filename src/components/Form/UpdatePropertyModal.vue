@@ -7,7 +7,7 @@
       modal-class="modal-right"
     >
       <b-form>
-        <b-form-group v-if="currentUser.role == UserRole.SuperAdmin" label="Agency">
+        <!-- <b-form-group v-if="currentUser.role == UserRole.SuperAdmin" label="Agency">
           <b-form-select
             v-if="currentUser.role == UserRole.SuperAdmin"
             v-model="agencyID"
@@ -24,7 +24,7 @@
               >{{ agency.name }}</b-form-select-option
             >
           </b-form-select>
-        </b-form-group>
+        </b-form-group> -->
         <b-form-group label="Title">
           <b-form-input v-model="title" />
         </b-form-group>
@@ -76,7 +76,7 @@ export default {
       payment_types,
       property_types,
       property: {},
-      agencyID: 0,
+      ID: 0,
       title: "",
       type: "",
       paymentType: "",
@@ -90,7 +90,7 @@ export default {
             this.property = element;
           }
         });
-        this.agencyID = this.property.agencyId;
+        this.ID = this.property.id;
         this.title = this.property.title;
         this.type = this.property.type;
         this.paymentType = this.property.paymentType;
@@ -109,7 +109,7 @@ export default {
       };
 
       const res = await this.editProperty({
-        pk: this.agencyID,
+        pk: this.ID,
         payload: prop,
         config: this.config,
       });
