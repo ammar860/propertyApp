@@ -118,7 +118,7 @@
 
         <div class="w-15 w-sm-100">
           <b-badge v-if="data.status == null || data.status == 'Offline' " pill variant="danger"
-            >OFFLINE</b-badge
+            >Offline</b-badge
           >
           <b-badge v-else-if="data.status != null" pill variant="success">{{
             data.status
