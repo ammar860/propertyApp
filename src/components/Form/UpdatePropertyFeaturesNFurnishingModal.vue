@@ -9,232 +9,136 @@
       <b-form class="av-tooltip tooltip-label-bottom">
         <b-row>
           <b-col cols="6">
-            <b-form-group label="Wheelchair access">
-              <b-form-select
-                v-model="item.wheelChairAcess"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="Pets Allowed">
-              <b-form-select
-                v-model="item.petsAllowed"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="Balcony">
-              <b-form-select
-                v-model="item.balcony"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="Parking Place">
-              <b-form-select
-                v-model="item.parkingPlace"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="Fireplace">
-              <b-form-select
-                v-model="item.Fireplace"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="View">
-              <b-form-select
-                v-model="item.View"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="Minergie Construction">
-              <b-form-select
-                v-model="item.minergieConstruction"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="New Building">
-              <b-form-select
-                v-model="item.newBuilding"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
+            <b-form-checkbox
+              v-model="item.wheelChairAcess"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Wheelchair access</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.petsAllowed"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Pets Allowed</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.balcony"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Balcony</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.parkingPlace"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Parking Place</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.Fireplace"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Fireplace</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.View"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >View</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.minergieConstruction"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Minergie Construction</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.newBuilding"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >New Building</b-form-checkbox
+            >
           </b-col>
           <b-col cols="6">
-            <b-form-group label="Child Friendly">
-              <b-form-select
-                v-model="item.childFriendly"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="Smoking Prohibited">
-              <b-form-select
-                v-model="item.smokingProhibited"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="Garage">
-              <b-form-select
-                v-model="item.garage"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="Elevator">
-              <b-form-select
-                v-model="item.elevator"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="Private Washing Machine">
-              <b-form-select
-                v-model="item.privateWashingMachine"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="Quiet Neighbourhood">
-              <b-form-select
-                v-model="item.quiteNeighbpurhood"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="Minergie Certified">
-              <b-form-select
-                v-model="item.minergieCertified"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
-            <b-form-group label="Old Building">
-              <b-form-select
-                v-model="item.oldBuilding"
-                :options="availList"
-                :rows="2"
-                :max-rows="2"
-              >
-                <template #first>
-                  <b-form-select-option value="" default disabled
-                    >-- Please select an option --</b-form-select-option
-                  >
-                </template>
-              </b-form-select>
-            </b-form-group>
+            <b-form-checkbox
+              v-model="item.childFriendly"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Child Friendly</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.smokingProhibited"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Smoking Prohibited</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.garage"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Garage</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.elevator"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Elevator</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.privateWashingMachine"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Private Washing Machine</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.quiteNeighbpurhood"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Quiet Neighbourhood</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.minergieCertified"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Minergie Certified</b-form-checkbox
+            >
+            <b-form-checkbox
+              v-model="item.oldBuilding"
+              :rows="2"
+              :max-rows="2"
+              :value="true"
+              :unchecked-value="false"
+              >Old Building</b-form-checkbox
+            >
           </b-col>
         </b-row>
       </b-form>
@@ -261,34 +165,41 @@ export default {
   },
   data() {
     return {
-      availList: [
-        { value: true, text: "True" },
-        { value: false, text: "False" },
-      ],
     };
   },
   methods: {
     ...mapActions({
       updatePropFurnishing: "updatePropertyFeatureNFurnishing",
     }),
+    isStringTrue(s) {
+      var boolValues = {
+        "false": false,
+        "False": false,
+        "true": true,
+        "True": true,
+        1: true,
+        0: false,
+      };
+      return boolValues[s];
+    },
     async update() {
       let features = {
-        wheelChairAcess: this.item.wheelChairAcess,
-        petsAllowed: this.item.petsAllowed,
-        balcony: this.item.balcony,
-        parkingPlace: this.item.parkingPlace,
-        Fireplace: this.item.Fireplace,
-        View: this.item.View,
-        minergieConstruction: this.item.minergieConstruction,
-        newBuilding: this.item.newBuilding,
-        childFriendly: this.item.childFriendly,
-        smokingProhibited: this.item.smokingProhibited,
-        garage: this.item.garage,
-        elevator: this.item.elevator,
-        privateWashingMachine: this.item.privateWashingMachine,
-        quiteNeighbpurhood: this.item.quiteNeighbpurhood,
-        minergieCertified: this.item.minergieCertified,
-        oldBuilding: this.item.oldBuilding,
+        wheelChairAcess: this.isStringTrue(this.item.wheelChairAcess),
+        petsAllowed: this.isStringTrue(this.item.petsAllowed),
+        balcony: this.isStringTrue(this.item.balcony),
+        parkingPlace: this.isStringTrue(this.item.parkingPlace),
+        Fireplace: this.isStringTrue(this.item.Fireplace),
+        View: this.isStringTrue(this.item.View),
+        minergieConstruction: this.isStringTrue(this.item.minergieConstruction),
+        newBuilding: this.isStringTrue(this.item.newBuilding),
+        childFriendly: this.isStringTrue(this.item.childFriendly),
+        smokingProhibited: this.isStringTrue(this.item.smokingProhibited),
+        garage: this.isStringTrue(this.item.garage),
+        elevator: this.isStringTrue(this.item.elevator),
+        privateWashingMachine: this.isStringTrue(this.item.privateWashingMachine),
+        quiteNeighbpurhood: this.isStringTrue(this.item.quiteNeighbpurhood),
+        minergieCertified: this.isStringTrue(this.item.minergieCertified),
+        oldBuilding: this.isStringTrue(this.item.oldBuilding),
       };
       console.log(features);
       console.log(this.item.propertyId);
@@ -303,8 +214,8 @@ export default {
         if (res.status == 201 || res.status == 200) {
           this.$notify(
             "Success",
-            "Property furnishing features updated successfully!",
-            "Code: " + res.status + ", Message:" + res.statusText,
+            "Endpoint: Update furnishings and features data.",
+            "Result: Property's furnishings and features data has been updated successfully.",
             {
               permanent: false,
               duration: 5000,
@@ -317,8 +228,9 @@ export default {
       } catch (err) {
         this.$notify(
           "Error",
-          "Property furnishing features could not be updated!",
-          "Code: " + res.status + ", Message:" + err,
+          "Endpoint: Update furnishings and features data.",
+          "Result: Error on updation. Error:" +
+            err.statusText,
           {
             permanent: false,
             duration: 5000,

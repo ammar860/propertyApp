@@ -1,79 +1,103 @@
 <template>
   <div>
-    <b-row>
-      <b-col xxs="12">
-        <h1>
-          {{ details.title }}
-        </h1>
-        <div class="top-right-button-container">
-          <b-button
-            id="ddown5"
-            size="lg"
-            variant="outline-success"
-            class="top-right-button top-right-button-single"
-            no-fade="true"
-            @click="navigateBack()"
-            ><i class="iconsminds-arrow-back" />{{ $t("pages.back") }}</b-button
-          >
-        </div>
-        <!-- <piaf-breadcrumb /> -->
-        <div class="separator mb-5"></div>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col cols="7">
-        <b-row>
-          <b-col cols="6">
-            <property-main-feature
-              :property="details"
-              @fetchProperty="fetchProperty"
-            />
-            <property-details
-              :property="details"
-              @fetchProperty="fetchProperty"
-            />
-          </b-col>
-          <b-col cols="6">
-            <b-row>
-              <property-cost
+    <template v-if="!details && !isLoad">
+      <b-card no-body>
+        <template #header>
+          <b-row class="w-100">
+            <b-col xxs="8">
+              <span xxs="9" class="w-50" style="white-space: pre-line"
+                ><h1 style="color: red">
+                  {{ $t("alert.propertyDet404") }}
+                </h1>
+                <p style="color: crimson">Note: {{ $t("alert.go-back-text") }}</p></span
+              >
+            </b-col>
+            <b-col xx="4" class="mt-4">
+              <div class="top-right-button-container">
+                <b-button
+                  id="ddown5"
+                  size="lg"
+                  variant="outline-success"
+                  class="top-right-button top-right-button-single"
+                  no-fade="true"
+                  @click="navigateBack()"
+                  ><i class="iconsminds-arrow-back" />{{ $t("pages.back") }}</b-button
+                >
+              </div>
+            </b-col>
+          </b-row>
+        </template>
+      </b-card>
+    </template>
+    <template v-else-if="details && !isLoad">
+      <b-card>
+        <div class="loading"></div>
+      </b-card>
+    </template>
+    <template v-else>
+      <b-row>
+        <b-col xxs="12">
+          <h1>
+            {{ details.title }}
+          </h1>
+          <div class="top-right-button-container">
+            <b-button
+              id="ddown5"
+              size="lg"
+              variant="outline-success"
+              class="top-right-button top-right-button-single"
+              no-fade="true"
+              @click="navigateBack()"
+              ><i class="iconsminds-arrow-back" />{{ $t("pages.back") }}</b-button
+            >
+          </div>
+          <!-- <piaf-breadcrumb /> -->
+          <div class="separator mb-5"></div>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col cols="7">
+          <b-row>
+            <b-col cols="6">
+              <property-main-feature :property="details" @fetchProperty="fetchProperty" />
+              <property-details :property="details" @fetchProperty="fetchProperty" />
+            </b-col>
+            <b-col cols="6">
+              <b-row>
+                <property-cost :property="details" @fetchProperty="fetchProperty" />
+                <property-responsible-agent
+                  :property="details"
+                  @fetchProperty="fetchProperty"
+                />
+              </b-row>
+              <property-feature-details
                 :property="details"
                 @fetchProperty="fetchProperty"
               />
-              <property-responsible-agent
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col style="min-width: 100%">
+              <property-media :property="details" @fetchProperty="fetchProperty" />
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col xxs="6">
+              <property-status-publication
                 :property="details"
                 @fetchProperty="fetchProperty"
               />
-            </b-row>
-            <property-feature-details
-              :property="details"
-              @fetchProperty="fetchProperty"
-            />
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col style="min-width: 100%">
-            <property-media :property="details" @fetchProperty="fetchProperty" />
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col xxs="6">
-            <property-status-publication
-              :property="details"
-              @fetchProperty="fetchProperty"
-            />
-          </b-col>
-          <b-col xxxs="6">
-            <property-owner
-              :property="details"
-              @fetchProperty="fetchProperty"
-            />
-          </b-col>
-        </b-row>
-      </b-col>
-      <b-col cols="5">
-        <property-description :property="details" @fetchProperty="fetchProperty" />
-      </b-col>
-    </b-row>
+            </b-col>
+            <b-col xxxs="6">
+              <property-owner :property="details" @fetchProperty="fetchProperty" />
+            </b-col>
+          </b-row>
+        </b-col>
+        <b-col cols="5">
+          <property-description :property="details" @fetchProperty="fetchProperty" />
+        </b-col>
+      </b-row>
+    </template>
   </div>
 </template>
 
@@ -106,10 +130,11 @@ export default {
     return {
       propertyID: Number,
       details: {},
+      isLoad: false,
     };
   },
   async mounted() {
-    this.fetchProperty();
+    this.getPropertyData();
   },
   methods: {
     ...mapActions({
@@ -118,24 +143,84 @@ export default {
     navigateBack() {
       this.$router.push("/app/second-menu/PropertiesListing");
     },
+    async getPropertyData() {
+      let uri = window.location.search.substring(1);
+      let id = new URLSearchParams(uri);
+      this.propertyID = id.get("p");
+
+      try {
+        const res = await this.getPropertyById({
+          pk: this.propertyID,
+          config: this.config,
+        });
+
+        this.details = res.data;
+        console.log(this.details);
+
+        if (res.status == 200 && this.details) {
+          this.isLoad = true;
+          this.$notify(
+            "success",
+            "Request made: Get property data!",
+            "Result: Fetched data successfully.",
+            {
+              type: "success",
+              duration: 5000,
+              permanent: false,
+            }
+          );
+        } else if (res.status == 200 && !this.details) {
+          this.$notify(
+            "error",
+            "Request made: Get property data!",
+            "Result: Fetch data request denied, selected property does not exist.",
+            {
+              type: "error",
+              duration: 5000,
+              permanent: false,
+            }
+          );
+        }
+      } catch (error) {
+        this.$notify(
+          "error",
+          "Request made: Get property data!",
+          "Result: Fetch data request denied. Response sent: " + error.status == 400 ||
+            401
+            ? "Access denied!"
+            : "Unexpected server error! Please try later.",
+          {
+            type: "error",
+            duration: 5000,
+            permanent: false,
+          }
+        );
+      }
+    },
     async fetchProperty() {
       let uri = window.location.search.substring(1);
       let id = new URLSearchParams(uri);
       this.propertyID = id.get("p");
 
-      const res = await this.getPropertyById({
-        pk: this.propertyID,
-        config: this.config,
-      });
+      try {
+        const res = await this.getPropertyById({
+          pk: this.propertyID,
+          config: this.config,
+        });
 
-      if (res.status == 200) {
-        this.details = res.data;
+        if (res.status == 200) {
+          this.details = res.data;
+        }
+      } catch (error) {
         this.$notify(
-          "success",
-          "Property data fetched successfully",
-          res.status,
+          "error",
+          "Request made: Get property data!",
+          "Result: Fetch data request denied. Response sent: " + error.status == 400 ||
+            401
+            ? "Access denied!"
+            : "Unexpected server error! Please try later.",
           {
-            type: "success",
+            type: "error",
             duration: 5000,
             permanent: false,
           }

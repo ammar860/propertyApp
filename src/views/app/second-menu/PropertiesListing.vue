@@ -32,13 +32,17 @@
         ></list-page-listing>
       </template>
       <template v-else-if="!isLoad && requireReload == false">
-        <div class="loading"></div>
+        <b-card>
+          <div class="loading"></div>
+        </b-card>
       </template>
       <template v-else-if="requireReload == true">
-        <div class="loading">
-          <i class="icon-Reload" />
-          <h3>Click here to reload!</h3>
-        </div>
+        <b-card>
+          <div class="loading">
+            <i class="icon-Reload" />
+            <h3>Click here to reload!</h3>
+          </div>
+        </b-card>
       </template>
     </b-colxx>
   </b-row>
@@ -80,7 +84,7 @@ export default {
     };
   },
   methods: {
-    async loadItems() {
+    async getPropertiesData() {
       var _ = require("lodash");
       this.isLoad = false;
 
@@ -103,11 +107,11 @@ export default {
             this.selectedItems = [];
             this.$notify(
               "Success",
-              "Properties listing fetched successfully.",
-              "Code:" + res.status + ", Message:" + res.statusText,
+              "Request made: Get all properties data!",
+              "Result: Data fetched successfully.",
               {
                 permanent: false,
-                duration: 1000,
+                duration: 5000,
                 type: "success",
               }
             );
@@ -119,11 +123,14 @@ export default {
             this.requireReload = true;
             this.$notify(
               "Error",
-              "Properties list could not be fetched.",
-              "Code:" + res.status + ", Message:" + res.status,
+              "Request made: Get all properties data!",
+              "Result: Data could not be fetched. Response sent: " + error.status == 400 ||
+            401
+            ? "Access denied!"
+            : "Unexpected server error! Please try later.",
               {
                 permanent: false,
-                duration: 1000,
+                duration: 5000,
                 type: "error",
               }
             );
@@ -132,11 +139,75 @@ export default {
         .catch((err) => {
           this.$notify(
             "Error",
-            "Properties listing not available currently.",
-            "Message:" + err,
+            "Endpoint: Get all properties data",
+            "Result: " + error.status == 400 ||
+            401
+            ? "Access denied!"
+            : "Unexpected server error! Please try later.",
             {
               permanent: false,
-              duration: 1000,
+              duration: 5000,
+              type: "error",
+            }
+          );
+          this.isLoad = false;
+          this.requireReload = true;
+          console.log("error :", err);
+        });
+    },
+    async loadItems() {
+      var _ = require("lodash");
+      this.isLoad = false;
+
+      var user = getCurrentUser();
+      var config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      await axios
+        .get(apiUrl + "property", config)
+        .then((res) => {
+          if (res.status == 200 || res.status == 201) {
+            let propLst = _.sortBy(res.data, this.sort.column);
+            this.items = propLst;
+            console.log(this.items);
+            this.total = this.items.length;
+            this.$store.dispatch("setProperties", this.items);
+            this.selectedItems = [];
+            this.paginate(this.perPage, 0);
+            this.requireReload = false;
+            this.isLoad = true;
+          } else {
+            this.isLoad = false;
+            this.requireReload = true;
+            this.$notify(
+              "Error",
+              "Endpoint: Get all properties data",
+              "Result: " + res.status == 400 ||
+            401
+            ? "Access denied!"
+            : "Unexpected server error! Please try later.",
+              {
+                permanent: false,
+                duration: 5000,
+                type: "error",
+              }
+            );
+          }
+        })
+        .catch((err) => {
+          this.$notify(
+            "Error",
+            "Endpoint: Get all properties data",
+            "Result: " + err.status == 400 ||
+            401
+            ? "Access denied!"
+            : "Unexpected server error! Please try later.",
+            {
+              permanent: false,
+              duration: 5000,
               type: "error",
             }
           );
@@ -174,7 +245,7 @@ export default {
       let propLst = _.sortBy(this.items.ignoreCase, sort.column);
       console.log(sort.column);
       this.items = propLst;
-      this.paginate(this.perPage, this.page-1);
+      this.paginate(this.perPage, this.page - 1);
     },
     searchChange(val) {
       this.search = val;
@@ -237,11 +308,11 @@ export default {
     },
     onContextMenuAction(action) {
       console.log("context menu item clicked - " + action + ": ", this.selectedItems);
-      if(action === 'delete') {
-        this.$root.$emit('bv::show::modal', 'deletePropertyModal');
-      } else if (action === 'edit') {
+      if (action === "delete") {
+        this.$root.$emit("bv::show::modal", "deletePropertyModal");
+      } else if (action === "edit") {
         if (this.selectedItems.length === 1) {
-          this.$root.$emit('bv::show::modal', 'modalEditProp');
+          this.$root.$emit("bv::show::modal", "modalEditProp");
         } else if (this.selectedItems.length === 0) {
           this.$notify("Error", "Select an item on right click to edit", "400", {
             type: "error",
@@ -249,14 +320,14 @@ export default {
             permanent: false,
           });
         } else if (this.selectedItems.length > 1) {
-          this.$notify("Error", "Select only one item on right click to edit", "400", {
+          this.$notify("Error", "", "400", {
             type: "error",
             duration: 5000,
             permanent: false,
           });
           this.selectedItems = [];
         }
-      } else if (action === 'cancel') {
+      } else if (action === "cancel") {
         this.selectedItems = [];
       }
     },
@@ -286,7 +357,7 @@ export default {
     },
   },
   mounted() {
-    this.loadItems();
+    this.getPropertiesData();
   },
 };
 </script>

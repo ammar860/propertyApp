@@ -12,7 +12,12 @@
         </b-col>
         <b-col cols="3">
           <b-row>Last Publication Date:</b-row>
-          <b-row><span><span style="font-weight:bolder">01/01/XX </span> By <span style="font-weight:900"> xyv</span></span></b-row>
+          <b-row
+            ><span
+              ><span style="font-weight: bolder">01/01/XX </span> By
+              <span style="font-weight: 900"> xyv</span></span
+            ></b-row
+          >
         </b-col>
         <b-col>
           <div class="top-right-button-container">
@@ -56,7 +61,9 @@
                 <b-dropdown-item v-b-modal.deletePropertyModal disabled>{{
                   $t("pages.delete")
                 }}</b-dropdown-item>
-                <b-dropdown-item v-b-modal.modalEditProp disabled>{{$t('pages.edit')}}</b-dropdown-item>
+                <b-dropdown-item v-b-modal.modalEditProp disabled>{{
+                  $t("pages.edit")
+                }}</b-dropdown-item>
               </b-dropdown>
             </b-button-group>
           </div>
@@ -149,8 +156,8 @@ import { DataListIcon, ThumbListIcon, ImageListIcon } from "../../components/Svg
 import AddNewPropertyModal from "../../components/Form/AddNewPropertyModal.vue";
 import DeletePropertyModal from "../../components/Form/DeletePropertyModal.vue";
 import UpdatePropertyModal from "../../components/Form/UpdatePropertyModal.vue";
-import { getCurrentUser } from '../../utils';
-import { mapActions, mapGetters } from 'vuex';
+import { getCurrentUser } from "../../utils";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -223,31 +230,43 @@ export default {
       let user = getCurrentUser();
       let id = user.agencyId;
 
-      const res = await this.publish({
-        pk: id,
-        config: this.config,
-      });
-
-      console.log(res);
-
-      if(res.status === 200 || res.status === 201) {
-        this.$notify("Success", "Published all properties successfully", res.status, {
-          type: "success",
-          permanent: false,
-          duration: 5000,
+      try {
+        const res = await this.publish({
+          pk: id,
+          config: this.config,
         });
-      } else if (res.statusCode == 400) {
-        this.$notify("Error", "Publishing failed", res.status + " " + res.message, {
-          type: "error",
-          permanent: false,
+
+        console.log(res);
+
+        if (res.status === 200 || res.status === 201) {
+          this.$notify(
+            "Success",
+            "Endpoint: Publish all properties.",
+            "Result: Properties list published to all hosts present in configuration.",
+            {
+              type: "success",
+              permanent: false,
+              duration: 5000,
+            }
+          );
+        }
+      } catch (error) {
+        this.$notify(
+        "Warning",
+        "Endpoint: Publish all properties.",
+        "Result: Publishing request denied due to duplicate data (Note: Always displayed, click on it to close it).",
+        {
+          type: "warning",
+          permanent: true,
           duration: 5000,
-        });
+        }
+      );
       }
     },
   },
   computed: {
-    ...mapGetters(["config"])
-  }
+    ...mapGetters(["config"]),
+  },
 };
 </script>
 

@@ -136,9 +136,7 @@ export default {
       },
     },
   },
-  computed: {
-    ...mapGetters(["loginError", "isAuthGuardActive"]),
-  },
+  computed: {},
   methods: {
     ...mapActions({
       loginAuthApi: "loginAuth",
@@ -165,25 +163,27 @@ export default {
           password: this.form.password,
         };
 
-        const res = await this.loginAuthApi({
-          payload: payload,
-        });
-
-        if (res.status == 201) {
-          this.$notify(
-            "Success",
-            "Login Success",
-            "Code:" + res.status + ", Message:" + res.statusText,
-            {
-              type: "success",
-              duration: 5000,
-              permanent: false,
-            }
-          );
-          this.$nextTick(() => {
-            this.$router.push(adminRoot);
+        try {
+          const res = await this.loginAuthApi({
+            payload: payload,
           });
-        } else {
+
+          if (res.status == 201) {
+            this.$notify(
+              "Success",
+              "Login Success",
+              "Code:" + res.status + ", Message:" + res.statusText,
+              {
+                type: "success",
+                duration: 5000,
+                permanent: false,
+              }
+            );
+            this.$nextTick(() => {
+              this.$router.push(adminRoot);
+            });
+          }
+        } catch (error) {
           this.$notify(
             "Error",
             "Username or Password Incorrect",
@@ -195,6 +195,19 @@ export default {
             }
           );
         }
+
+        //  else {
+        //   this.$notify(
+        //     "Error",
+        //     "Username or Password Incorrect",
+        //     "Code:" + res.status + ", Message:" + res.statusText,
+        //     {
+        //       type: "error",
+        //       duration: 5000,
+        //       permanent: false,
+        //     }
+        //   );
+        // }
       }
     },
   },
