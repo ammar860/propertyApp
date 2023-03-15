@@ -23,14 +23,11 @@
           >
             <i class="iconsminds-pen"></i>Edit</b-button
           >
-          <edit-mFet-modal
-            :item=mainFeature
-            @updateData="updateData"
-          />
+          <edit-mFet-modal :item="mainFeature" @updateData="updateData" />
         </b-colxx>
       </b-row>
     </template>
-    <template v-if="mainFeature.Rooms === 0 && mainFeature.LeavingSpace === 0">
+    <!-- <template v-if="mainFeature.Rooms === 0 && mainFeature.LeavingSpace === 0">
       <b-row class="m-1">
         <h4
           @mouseover="isHovering = true"
@@ -46,50 +43,70 @@
         </h4>
       </b-row>
     </template>
-    <template v-else>
+    <template v-else> -->
       <b-card-text>
         <b-row class="ml-2">
           <b-col class="rowsLbl" cols="6">Rooms:</b-col>
           <b-col
-            ><p class="rowsVal">
+            ><p v-if="mainFeature.Rooms" class="rowsVal">
               {{ mainFeature.Rooms }}
-            </p></b-col
+            </p>
+            <p v-else class="rowsVal">
+              -
+            </p>
+            </b-col
           >
         </b-row>
         <b-row class="ml-2">
           <b-col class="rowsLbl" cols="6">Living Space:</b-col>
           <b-col
-            ><p class="rowsVal">
-              {{ mainFeature.LeavingSpace }} &#13217;
-            </p></b-col
+            ><p v-if="mainFeature.LeavingSpace" class="rowsVal">
+              {{ mainFeature.LeavingSpace }} <span style="margin-inline:7%">&#13217;</span>
+            </p>
+            <p v-else class="rowsVal">
+              -<!-- - <span style="margin-inline:7%" >&#13217;</span> -->
+            </p>
+            </b-col
           >
         </b-row>
         <b-row class="ml-2">
           <b-col class="rowsLbl" cols="6">Street & Nr:</b-col>
           <b-col
-            ><p class="rowsVal">
+            ><p v-if="mainFeature.Street" class="rowsVal">
               {{ mainFeature.Street }}
-            </p></b-col
+            </p>
+            <p v-else class="rowsVal">
+              -
+            </p>
+            </b-col
           >
         </b-row>
         <b-row class="ml-2">
           <b-col class="rowsLbl" cols="6">Zip Code & City:</b-col>
           <b-col
-            ><p class="rowsVal">
+            ><p v-if="mainFeature.ZipCodeOrCity" class="rowsVal">
               {{ mainFeature.ZipCodeOrCity }}
-            </p></b-col
+            </p>
+            <p v-else class="rowsVal">
+              -
+            </p>
+            </b-col
           >
         </b-row>
         <b-row class="ml-2">
           <b-col class="rowsLbl" cols="6">Available:</b-col>
           <b-col
-            ><p class="rowsVal">
+            ><p v-if="mainFeature.Availibility" class="rowsVal">
               {{ mainFeature.Availibility }}
-            </p></b-col
+            </p>
+            <p v-else class="rowsVal">
+              -
+            </p>
+            </b-col
           >
         </b-row>
       </b-card-text>
-    </template>
+    <!-- </template> -->
   </b-card>
 </template>
 
@@ -106,9 +123,8 @@ export default {
   },
   data() {
     return {
-      isHovering: false,
+      // isHovering: false,
       mainFeature: {},
-
     };
   },
   watch: {
@@ -117,12 +133,10 @@ export default {
     },
   },
   methods: {
-    async updateData(){
+    async updateData() {
       this.$emit("fetchProperty");
-    }
+    },
   },
-
-
 };
 </script>
 

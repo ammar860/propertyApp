@@ -147,6 +147,7 @@ export default {
       this.$v.$touch();
       this.$v.form.$touch();
       if ((this.form.email == "example@ex.com") & (this.form.password == "xxxxxxx")) {
+        this.flag = true;
         this.$notify(
           "Error",
           "Kindly change default credentials to login",
@@ -179,6 +180,7 @@ export default {
                 permanent: false,
               }
             );
+            this.flag = true;
             this.$nextTick(() => {
               this.$router.push(adminRoot);
             });
@@ -194,6 +196,7 @@ export default {
               permanent: false,
             }
           );
+          this.flag = true;
         }
 
         //  else {

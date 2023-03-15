@@ -164,8 +164,7 @@ export default {
     item: Object,
   },
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     ...mapActions({
@@ -173,10 +172,10 @@ export default {
     }),
     isStringTrue(s) {
       var boolValues = {
-        "false": false,
-        "False": false,
-        "true": true,
-        "True": true,
+        false: false,
+        False: false,
+        true: true,
+        True: true,
         1: true,
         0: false,
       };
@@ -214,23 +213,24 @@ export default {
         if (res.status == 201 || res.status == 200) {
           this.$notify(
             "Success",
-            "Endpoint: Update furnishings and features data.",
-            "Result: Property's furnishings and features data has been updated successfully.",
+            "Request made: Update viewed property's furnishings and features.",
+            "Result: Furnishing and Features updated successfully.",
             {
               permanent: false,
               duration: 5000,
               type: "success",
             }
           );
-          this.$emit("updateData");
           this.hideModal("propFurnishingEditModal");
         }
       } catch (err) {
         this.$notify(
           "Error",
-          "Endpoint: Update furnishings and features data.",
-          "Result: Error on updation. Error:" +
-            err.statusText,
+          "Request made: Update viewed property's furnishings and features.",
+          "Result: Error when updating furnishing and features. Respose sent:" + err.status ==
+            400 || 401
+            ? "Access denied!"
+            : "Unexpected server error! Please try later.",
           {
             permanent: false,
             duration: 5000,
@@ -240,6 +240,7 @@ export default {
       }
     },
     hideModal(refname) {
+      this.$emit("updateData");
       this.$refs[refname].hide();
     },
   },

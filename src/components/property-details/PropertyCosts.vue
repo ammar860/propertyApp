@@ -22,7 +22,7 @@
         </b-col>
       </b-row>
     </template>
-    <template v-if="!costItem.price">
+    <!-- <template v-if="!costItem.price">
       <b-row class="m-1">
         <h4
           @mouseover="isHovering = true"
@@ -38,7 +38,7 @@
         </h4>
       </b-row>
     </template>
-    <template v-else>
+    <template v-else> -->
       <b-card-text>
         <b-row class="ml-2">
           <b-col class="rowsLbl" cols="6">Type:</b-col>
@@ -53,7 +53,7 @@
           </b-col>
         </b-row>
       </b-card-text>
-    </template>
+    <!-- </template> -->
   </b-card>
 </template>
 
@@ -71,7 +71,7 @@ export default {
   },
   data() {
     return {
-      isHovering: false,
+      // isHovering: false,
       costItem: {
         propertyId: 0,
         price: null,

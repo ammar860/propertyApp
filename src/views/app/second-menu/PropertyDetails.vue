@@ -58,18 +58,18 @@
       <b-row>
         <b-col cols="7">
           <b-row>
-            <b-col cols="6">
+            <b-col cols="5">
               <property-main-feature :property="details" @fetchProperty="fetchProperty" />
               <property-details :property="details" @fetchProperty="fetchProperty" />
             </b-col>
-            <b-col cols="6">
-              <b-row>
+            <b-col cols="7">
+              <!-- <b-row> -->
                 <property-cost :property="details" @fetchProperty="fetchProperty" />
                 <property-responsible-agent
                   :property="details"
                   @fetchProperty="fetchProperty"
                 />
-              </b-row>
+              <!-- </b-row> -->
               <property-feature-details
                 :property="details"
                 @fetchProperty="fetchProperty"

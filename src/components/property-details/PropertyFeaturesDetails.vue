@@ -30,7 +30,7 @@
         </b-col>
       </b-row>
     </template>
-    <template v-if="furnishingFeature === false">
+    <!-- <template v-if="furnishingFeature === false">
       <b-row class="m-1">
         <h4
           @mouseover="isHovering = true"
@@ -46,7 +46,7 @@
         </h4>
       </b-row>
     </template>
-    <template v-else>
+    <template v-else> -->
       <b-card-text>
         <b-row class="ml-2">
           <b-col class="rowsLbl" cols="3">Wheelchair access</b-col>
@@ -385,7 +385,7 @@
           ></b-col>
         </b-row>
       </b-card-text>
-    </template>
+    <!-- </template> -->
   </b-card>
 </template>
 
@@ -402,7 +402,7 @@ export default {
   },
   data() {
     return {
-      isHovering: false,
+      // isHovering: false,
       furnishingFeature: {},
     };
   },

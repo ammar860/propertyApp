@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar fixed-top">
-    <div class="d-flex align-items-center navbar-left">
+    <div class="d-flex align-items-center navbar-left" style="float:left;">
       <a
         href="#"
         class="menu-button d-none d-md-block"
@@ -62,7 +62,7 @@
     </router-link> -->
 
     <div class="navbar-right">
-      <b-row class="d-flex" style="float: inline-end;">
+      <b-row class="d-flex" style="justify-content:space-evenly; float:right; margin-right:5%;">
         <b-col cols="1" class="mx-2">
           <div class="d-none d-md-inline-block align-middle mt-2" >
             <switches
@@ -74,7 +74,7 @@
             />
             <b-tooltip
               target="tool-mode-switch"
-              placement="left"
+              placement="right"
               title="Dark Mode"
             ></b-tooltip>
           </div>
