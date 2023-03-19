@@ -7,6 +7,7 @@ const state = {
     properties: [],
     currentPage: 1,
   },
+  selectedProp: {},
   // selectedProp: {
   //   id: 0,
   //   title: "",
@@ -131,7 +132,7 @@ const state = {
 const getters = {
   propertiesList: (state) => state.propertiesList,
   paginatedList: (state) => state.paginatedList,
-  // selectedProp: (state) => state.selectedProp,
+  selectedProp: (state) => state.selectedProp,
 };
 
 const mutations = {
@@ -141,9 +142,9 @@ const mutations = {
   setPaginatedList(state, payload) {
     state.paginatedList = payload
   },
-  // setSelectedProp(state, payload) {
-  //   state.selectedProp = payload;
-  // },
+  setSelectedProp(state, payload) {
+    state.selectedProp = payload;
+  },
   findProperty(state, payload) {
     state.propertiesList.forEach((element) => {
       if (element.id == payload) {
@@ -172,9 +173,9 @@ const actions = {
   onPaginationChange({ commit }, payload) {
     commit("setPaginatedList", payload);
   },
-  // setSelectedProp({ commit }, payload) {
-  //   commit("setSelectedProp", payload);
-  // },
+  setSelectedProp({ commit }, payload) {
+    commit("setSelectedProp", payload);
+  },
   findProperty({ commit }, payload) {
     let det = commit("findProperty", payload);
     return det;

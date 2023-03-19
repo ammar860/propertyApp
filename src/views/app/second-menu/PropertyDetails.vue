@@ -172,6 +172,8 @@ export default {
               permanent: false,
             }
           );
+          this.$store.dispatch("setSelectedProp", this.details);
+
         } else if (res.status == 200 && !this.details) {
           this.$notify(
             "error",
@@ -213,6 +215,7 @@ export default {
 
         if (res.status == 200) {
           this.details = res.data;
+          this.$store.dispatch("setSelectedProp", this.details);
         }
       } catch (error) {
         this.$notify(
