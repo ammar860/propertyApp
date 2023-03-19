@@ -11,7 +11,7 @@
           <b-form-spinbutton
             v-model="item.Floors"
             min="0"
-            max="10"
+            :max="item.numberOfFloors"
             step="1"
             :rows="2"
             :max-rows="2"
