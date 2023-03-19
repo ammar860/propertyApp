@@ -6,17 +6,14 @@
           <b-row class="p-1">
             <b-col xxs="5" class="justify-content-center">
               <h4 class="d-flex justify-content-center flex-wrap">
-                <i class="iconsminds-information"></i><br /><span
-                  >No data available.</span
+                <i class="iconsminds-information"></i><br /><span>No data available.</span
                 ><br />
               </h4>
             </b-col>
           </b-row>
         </template>
         <b-card-text>
-          <h5>
-            Click on "ADD NEW" button to create items for the properties list!
-          </h5>
+          <h5>Click on "ADD NEW" button to create items for the properties list!</h5>
         </b-card-text>
       </b-card>
     </template>
@@ -65,27 +62,49 @@
           :key="index"
           :id="item.id"
         >
-          <b-row style="color:#6FB327;" v-if="index == 0">
-            <b-colxx xxs="1" class="mb-3" style="padding-inline-start: 2.5%;">Id</b-colxx>
-            <b-colxx xxs="1" class="mb-3">Main Image</b-colxx>
-            <b-colxx xxs="1" class="mb-3">Title</b-colxx>
-            <b-colxx xxs="1" class="mb-3">Type</b-colxx>
-            <b-colxx xxs="1" class="mb-3">Address</b-colxx>
-            <b-colxx xxs="1" class="mb-3">Price</b-colxx>
-            <b-colxx xxs="1" class="mb-3">Responsible Agent</b-colxx>
-            <b-colxx xxs="1" class="mb-3" style="padding-inline-start: 1.5%;">Last Updated</b-colxx>
-            <b-colxx xxs="1" class="mb-3" style="padding-inline-start: 1.5%;">Creation Date</b-colxx>
-            <b-colxx xxs="1" class="mb-3" style="padding-inline-start: 2%;">Created By</b-colxx>
-            <b-colxx xxs="1" class="mb-3" style="padding-inline-start: 2.5%;">Status</b-colxx>
-            <b-colxx xxs="1" class="mb-3"></b-colxx>
-          </b-row>
+          <!-- <b-row class="d-flex flex-grow-1 min-width-zero align-items-lg-center" style="color:#6FB327;" v-if="index == 0">
+            <b-col class="mb-3">Id</b-col>
+            <b-col class="mb-3">Main Image</b-col>
+            <b-col class="mb-3">Title</b-col>
+            <b-col class="mb-3">Type</b-col>
+            <b-col class="mb-3">Address</b-col>
+            <b-col class="mb-3">Price</b-col>
+            <b-col class="mb-3">Responsible Agent</b-col>
+            <b-col class="mb-3">Last Updated</b-col>
+            <b-col class="mb-3">Creation Date</b-col>
+            <b-col class="mb-3">Created By</b-col>
+            <b-col class="mb-3">Status</b-col>
+            <b-col class="mb-3"> </b-col>
+          </b-row> -->
+          <div
+            class="d-flex min-width-zero"
+            style="color: #6fb327;"
+            v-if="index == 0"
+          >
+            <div
+              class="card-body align-self-center d-flex flex-lg-row justify-content-around min-width-zero align-items-lg-center"
+            >
+            <span class="w-15 w-sm-100">Id</span>
+            <span class="w-15 w-sm-100 pr-2">Main Image</span>
+            <span class="w-15 w-sm-100 pr-4">Title</span>
+            <span class="w-15 w-sm-100 pl-2">Type</span>
+            <span class="w-15 w-sm-100 pl-3">Address</span>
+            <span class="w-15 w-sm-100 pl-5">Price</span>
+            <span class="w-15 w-sm-100 pl-4">Responsible Agent</span>
+            <span class="w-15 w-sm-100 pl-5">Last Updated</span>
+            <span class="w-15 w-sm-100 pl-5">Creation Date</span>
+            <span class="w-15 w-sm-100 pl-5">Created By</span>
+            <span class="w-15 w-sm-100 pl-5">Status</span>
+            <span class="w-15 w-sm-100"></span>
+            </div>
+          </div>
           <data-list-item
             :key="item.id"
             :data="item"
             :selected-items="selectedItems"
             @toggle-item="toggleItem"
             v-contextmenu:contextmenu
-            style="height:70px;"
+            style="height: 70px"
           />
         </b-colxx>
       </b-row>

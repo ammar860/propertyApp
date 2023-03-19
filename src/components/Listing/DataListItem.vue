@@ -72,7 +72,7 @@
           v-else-if="data.price != null"
           class="mb-0 text-muted text-small w-15 w-sm-100"
         >
-          {{ data.price }}
+          {{ data.price.toLocaleString('en', {useGrouping:true}) }} CHF
         </p>
         <p
           v-if="data.agentId == null"
