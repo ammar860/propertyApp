@@ -143,7 +143,7 @@ export default {
             type: "error",
           }
         );
-        this.hideModal("mainFeaturesModal");
+        // this.hideModal("mainFeaturesModal");
       }
     },
     hideModal(refname) {

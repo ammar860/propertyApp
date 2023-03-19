@@ -132,6 +132,9 @@ export default {
       this.mainFeature = value.mainFeature;
     },
   },
+  mounted() {
+    this.updateData();
+  },
   methods: {
     async updateData() {
       this.$emit("fetchProperty");
