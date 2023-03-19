@@ -55,14 +55,14 @@
           {{ data.price }}
         </p>
         <p
-          v-if="data.agentId == null"
+          v-if="data.agentId === null"
           class="mb-0 text-small w-15 w-sm-100"
           style="color: #3757fa"
         >
           N/A
         </p>
         <p
-          v-else-if="data.agentId != null"
+          v-else
           class="mb-0 text-small w-15 w-sm-100"
           style="color: #3757fa"
         >
