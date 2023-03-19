@@ -1,7 +1,8 @@
 {
   "general": {
     "copyright": "Piaf Vue © 2018 All Rights Reserved.",
-    "delete-confirmation": "Are you sure you want to delete the selected property(s) ?"
+    "delete-confirmation": "Are you sure you want to delete the selected property(s) ?",
+    "delete-publishings": "Are you sure you want to delete the selected publishing setting ?"
   },
   "unauthorized": {
     "title": "Unauthorized Access Attempt",

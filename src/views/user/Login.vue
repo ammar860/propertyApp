@@ -50,7 +50,7 @@
               <router-link to="/user/forgot-password">Forgot Password</router-link>
               <b-button
                 :disabled="flag === true"
-                @click="formSubmit()"
+                @click.once="formSubmit()"
                 type="submit"
                 variant="primary"
                 size="lg"
@@ -172,8 +172,8 @@ export default {
           if (res.status == 201) {
             this.$notify(
               "Success",
-              "Login Success",
-              "Code:" + res.status + ", Message:" + res.statusText,
+              "Request made: User login",
+              "Result: Credentials verified, login successfull.",
               {
                 type: "success",
                 duration: 5000,
@@ -181,21 +181,22 @@ export default {
               }
             );
             this.flag = true;
-            this.$nextTick(() => {
+            // this.$nextTick(() => {
               this.$router.push(adminRoot);
-            });
+            // });
           }
         } catch (error) {
           this.$notify(
-            "Error",
-            "Username or Password Incorrect",
-            "Code:" + res.status + ", Message:" + res.statusText,
-            {
-              type: "error",
-              duration: 5000,
-              permanent: false,
-            }
-          );
+              "Error",
+              "Request made: User login",
+              "Result: Error in credentials verification, username/password incorrect.",
+              {
+                type: "error",
+                duration: 5000,
+                permanent: false,
+              }
+            );
+          console.log(error);
           this.flag = true;
         }
 

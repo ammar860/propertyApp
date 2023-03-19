@@ -27,7 +27,7 @@
         </b-col>
       </b-row>
     </template>
-    <template v-if="description === null">
+    <!-- <template v-if="description === null">
       <b-row class="m-1">
         <h4
           @mouseover="isHovering = true"
@@ -43,26 +43,32 @@
         </h4>
       </b-row>
     </template>
-    <template v-else>
+    <template v-else> -->
       <b-card-text>
         <b-row class="ml-2">
-          <b-col class="rowsLbl" cols="6">Title:</b-col>
+          <b-col class="rowsLbl" cols="4">Title:</b-col>
           <b-col
-            ><p class="rowsVal">
+            ><p v-if="title" class="rowsVal">
               {{ title }}
+            </p>
+            <p v-else class="rowsVal">
+              -
             </p></b-col
           >
         </b-row>
         <b-row class="ml-2">
-          <b-col class="rowsLbl" cols="6">Description:</b-col>
+          <b-col class="rowsLbl" cols="4">Description:</b-col>
           <b-col
-            ><p class="rowsVal">
+            ><p v-if="description" class="rowsVal">
               {{ description }}
+            </p>
+            <p v-else class="rowsVal">
+              -
             </p></b-col
           >
         </b-row>
       </b-card-text>
-    </template>
+    <!-- </template> -->
   </b-card>
 </template>
 
@@ -79,7 +85,7 @@ export default {
   },
   data() {
     return {
-      isHovering: false,
+      // isHovering: false,
       title: "",
       description: "",
     };
@@ -98,4 +104,20 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.rowsLbl {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 200;
+  font-size: 12px;
+  color: #717171 !important;
+}
+
+.rowsVal {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  color: #212121 !important;
+}
+</style>

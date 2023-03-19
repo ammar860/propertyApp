@@ -1,7 +1,7 @@
 <template>
-  <b-card id="custom-row-card" header-text-variant="dark">
+  <b-card header-text-variant="dark">
     <template #header>
-      <b-row class="d-flex">
+      <b-row class="d-flex" no-gutters>
         <b-col class="d-flex justify-content-start" xxs="9">
           <h3
             style="font-family: 'Nunito', sans-serif;font-weight: 400;font-size: 18px;padding-top: 1rem;"
@@ -41,15 +41,17 @@
     <template v-else> -->
       <b-card-text>
         <b-row class="ml-2">
-          <b-col class="rowsLbl" cols="6">Type:</b-col>
-          <b-col
-            ><p class="rowsVal">{{ costItem.paymentType }}</p></b-col
-          >
+          <b-col class="rowsLbl" cols="4">Type:</b-col>
+          <b-col>
+            <p v-if="costItem.paymentType" class="rowsVal">{{ costItem.paymentType }}</p>
+            <p v-else class="rowsVal">-</p>
+          </b-col>
         </b-row>
         <b-row class="ml-2">
-          <b-col class="rowsLbl" cols="6">Price:</b-col>
+          <b-col class="rowsLbl" cols="4">Price:</b-col>
           <b-col>
-            <p class="rowsVal">CHF {{ costItem.price }}</p>
+            <p v-if="costItem.price" class="rowsVal">CHF {{ costItem.price }}</p>
+            <p v-else class="rowsVal">-</p>
           </b-col>
         </b-row>
       </b-card-text>
@@ -94,4 +96,20 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.rowsLbl {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 200;
+  font-size: 12px;
+  color: #717171 !important;
+}
+
+.rowsVal {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  color: #212121 !important;
+}
+</style>

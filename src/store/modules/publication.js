@@ -13,6 +13,10 @@ const mutations = {
   setPublicationsList(state, payload) {
     state.publicationsList = payload;
   },
+  deletePublicationItem(state,payload) {
+    var _ = require("lodash");
+    state.publicationsList = _.reject(state.publicationsList, function(el) {return el.id === payload});
+  }
   //   setPublishItem(state, payload) {
   //     state.publicationsList[payload.id].ft = ;
   //   },
@@ -51,6 +55,16 @@ const actions = {
     // commit("setPublishItem", payload);
     return res;
   },
+  async deletePublishing({commit}, {pk, config}) {
+    const res = await axios.delete(
+      apiUrl + "publishings/" + pk,
+      config
+    );
+    if(res.status == 200 || res.status == 201) {
+      commit("deletePublicationItem", pk);
+    }
+    return res;
+  }
 };
 
 export default {

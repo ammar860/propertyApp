@@ -38,6 +38,7 @@
                 @click="selectAll(true)"
                 class="check-button ml-2"
                 variant="primary"
+                hidden
               >
                 <label
                   class="custom-control custom-checkbox pl-4 mb-0 d-inline-block"
@@ -58,10 +59,10 @@
                     >&nbsp;</span
                   >
                 </label>
-                <b-dropdown-item v-b-modal.deletePropertyModal disabled>{{
+                <b-dropdown-item v-b-modal.deletePropertyModal hidden>{{
                   $t("pages.delete")
                 }}</b-dropdown-item>
-                <b-dropdown-item v-b-modal.modalEditProp disabled>{{
+                <b-dropdown-item v-b-modal.modalEditProp hidden>{{
                   $t("pages.edit")
                 }}</b-dropdown-item>
               </b-dropdown>

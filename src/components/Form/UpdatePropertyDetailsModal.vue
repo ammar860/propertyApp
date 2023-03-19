@@ -8,10 +8,11 @@
     >
       <b-form>
         <b-form-group label="Floor">
-          <b-form-input
+          <b-form-spinbutton
             v-model="item.Floors"
-            type="number"
             min="0"
+            max="10"
+            step="1"
             :rows="2"
             :max-rows="2"
           />
@@ -163,52 +164,65 @@ export default {
     async updateDetails() {
       // let date = this.defaultDate.getFullYear();
       // this.item.lastRenovation = Number(date);
-      let features = {
-        Floors: Number(this.item.Floors),
-        numberOfFloors: Number(this.item.numberOfFloors),
-        lotDetailSizeInM2: Number(this.item.lotDetailSizeInM2),
-        roomsHeight: Number(this.item.roomsHeight),
-        yearBuilt: Number(this.item.yearBuilt),
-        floorSpaceM2: Number(this.item.floorSpaceM2),
-        volumeInM3: Number(this.item.volumeInM3),
-        lastRenovation: Number(this.item.lastRenovation),
-      };
-      console.log(features);
+      try {
+        let features = {
+          Floors: Number(this.item.Floors),
+          numberOfFloors: Number(this.item.numberOfFloors),
+          lotDetailSizeInM2: Number(this.item.lotDetailSizeInM2),
+          roomsHeight: Number(this.item.roomsHeight),
+          yearBuilt: Number(this.item.yearBuilt),
+          floorSpaceM2: Number(this.item.floorSpaceM2),
+          volumeInM3: Number(this.item.volumeInM3),
+          lastRenovation: Number(this.item.lastRenovation),
+        };
+        var pkID;
 
-      const res = await this.updatePropertyDetails({
-        pk: this.item.propertyId,
-        payload: features,
-        config: this.config,
-      });
+        if (!this.item.propertyId) {
+          let uri = window.location.search.substring(1);
+          let id = new URLSearchParams(uri);
+          pkID = id.get("p");
+        } else {
+          pkID = this.item.propertyId;
+        }
 
-      if (res.status == 200 || res.status == 201) {
-        this.$notify(
-          "Success",
-          "Property details updated successfully!",
-          "Code: " + res.status + ", Message:" + res.statusText,
-          {
-            permanent: false,
-            duration: 1000,
-            type: "success",
-          }
-        );
-        this.$emit("updateData");
-        this.hideModal("propertyDetailsModal");
-      } else {
+        const res = await this.updatePropertyDetails({
+          pk: pkID,
+          payload: features,
+          config: this.config,
+        });
+
+        if (res.status == 200 || res.status == 201) {
+          this.$notify(
+            "Success",
+            "Request made: Update viewed property's details.",
+            "Result: Details updated successfully.",
+            {
+              permanent: false,
+              duration: 1000,
+              type: "success",
+            }
+          );
+          this.hideModal("propertyDetailsModal");
+        }
+      } catch (err) {
         this.$notify(
           "Error",
-          "Property details could not be updated!",
-          "Code: " + res.status + ", Message:" + res.statusText,
+          "Request made: Update viewed property's details.",
+          "Result: Error when updating details. Respose sent:" + err.status ==
+            400 || err.status == 500
+            ? "Access denied!"
+            : "Unexpected server error! Please try later.",
           {
             permanent: false,
             duration: 5000,
             type: "error",
           }
         );
-        this.$emit("updateData");
+        this.hideModal("propertyDetailsModal");
       }
     },
     hideModal(refname) {
+      this.$emit("updateData");
       this.$refs[refname].hide();
     },
     // format_number(e) {

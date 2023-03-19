@@ -1,5 +1,5 @@
 <template>
-  <b-card id="custom-row-card" header-text-variant="dark">
+  <b-card header-text-variant="dark">
     <template #header>
       <b-row class="d-flex">
         <b-col class="d-flex justify-content-start" xxs="9">
@@ -21,7 +21,7 @@
         </b-col>
       </b-row>
     </template>
-    <template v-if="!agentItem.agentId">
+    <!-- <template v-if="!agentItem.agentId">
       <b-row class="m-1">
         <h4
           @mouseover="isHovering = true"
@@ -37,16 +37,17 @@
         </h4>
       </b-row>
     </template>
-    <template v-else>
+    <template v-else> -->
       <b-card-text>
         <b-row class="ml-2">
-          <b-col class="rowsLbl" cols="6">Agent:</b-col>
+          <b-col class="rowsLbl" cols="4">Agent:</b-col>
           <b-col
-            ><p class="rowsVal">{{ agentItem.agentName }}</p></b-col
+            ><p v-if="agentItem.agentId" class="rowsVal">{{ agentItem.agentName }}</p>
+            <p v-else class="rowsVal">-</p></b-col
           >
         </b-row>
       </b-card-text>
-    </template>
+    <!-- </template> -->
   </b-card>
 </template>
 
@@ -63,7 +64,7 @@ export default {
   },
   data() {
     return {
-      isHovering:false,
+      // isHovering:false,
       agentItem: {
         propertyId: 0,
         agentName: "",
@@ -88,4 +89,20 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.rowsLbl {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 200;
+  font-size: 12px;
+  color: #717171 !important;
+}
+
+.rowsVal {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  color: #212121 !important;
+}
+</style>

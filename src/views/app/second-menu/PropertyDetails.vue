@@ -64,13 +64,16 @@
             </b-col>
             <b-col cols="7">
               <!-- <b-row> -->
-                <property-cost :property="details" @fetchProperty="fetchProperty" />
-                <property-responsible-agent
-                  :property="details"
-                  @fetchProperty="fetchProperty"
-                />
+              <property-cost class="mb-2" style="width:100%;" :property="details" @fetchProperty="fetchProperty" />
+              <property-responsible-agent
+                class="mb-2"
+                style="width:100%;"
+                :property="details"
+                @fetchProperty="fetchProperty"
+              />
               <!-- </b-row> -->
               <property-feature-details
+                style="width:100%;"
                 :property="details"
                 @fetchProperty="fetchProperty"
               />
@@ -235,12 +238,6 @@ export default {
 </script>
 
 <style scoped>
-#custom-row-card {
-  min-width: 250px;
-  flex-grow: 1;
-  margin-bottom: 10px;
-  margin-inline: 15px;
-}
 
 .rowsLbl {
   font-family: "Nunito";

@@ -31,7 +31,7 @@
         </b-col>
       </b-row>
     </template>
-    <template v-if="ownerItem.ownerId === null">
+    <!-- <template v-if="ownerItem.ownerId === null">
       <b-row class="m-1">
         <h4
           @mouseover="isHovering = true"
@@ -47,34 +47,43 @@
         </h4>
       </b-row>
     </template>
-    <template v-else-if="ownerItem.propertyId != null">
+    <template v-else-if="ownerItem.propertyId != null"> -->
       <b-card-text>
         <b-row class="ml-2">
           <b-col class="rowsLbl" cols="6">Name:</b-col>
           <b-col
-            ><p class="rowsVal">
+            ><p v-if="ownerItem.firstName" class="rowsVal">
               {{ ownerItem.firstName }}
+            </p>
+            <p v-else class="rowsVal">
+              -
             </p></b-col
           >
         </b-row>
         <b-row class="ml-2">
           <b-col class="rowsLbl" cols="6">Contact:</b-col>
           <b-col
-            ><p class="rowsVal">
+            ><p v-if="ownerItem.Contact" class="rowsVal">
               {{ ownerItem.Contact == "" ? "-" : ownerItem.Contact }}
+            </p>
+            <p v-else class="rowsVal">
+              -
             </p></b-col
           >
         </b-row>
         <b-row class="ml-2">
           <b-col class="rowsLbl" cols="6">Email:</b-col>
           <b-col
-            ><p class="rowsVal">
+            ><p v-if="ownerItem.email" class="rowsVal">
               {{ ownerItem.email }}
+            </p>
+            <p v-else class="rowsVal">
+              -
             </p></b-col
           >
         </b-row>
       </b-card-text>
-    </template>
+    <!-- </template> -->
     <template #footer>
       <b-row class="d-flex" no-gutters>
         <b-col class="d-flex justify-content-start" xxs="9">
@@ -92,7 +101,7 @@
       </b-row>
       <b-row>
         <b-col>
-          <p class="rowsVal pl-5" style="text-decoration: underline solid gray">
+          <p class="rowsVal pl-5" :style="ownerItem.IBAN == '' ?'text-decoration:none;' : 'text-decoration: underline solid gray;'">
             {{ ownerItem.IBAN == "" ? "-" : ownerItem.IBAN }}
           </p>
         </b-col>
@@ -114,7 +123,7 @@ export default {
   },
   data() {
     return {
-      isHovering:false,
+      // isHovering:false,
       ownerItem: {
         firstName: "",
         Contact: "",
@@ -151,6 +160,22 @@ export default {
 </script>
 
 <style>
+.rowsLbl {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 200;
+  font-size: 12px;
+  color: #717171 !important;
+}
+
+.rowsVal {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  color: #212121 !important;
+}
+
 @keyframes glowing {
   0% {
     background-color: white;

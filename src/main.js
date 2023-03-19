@@ -3,6 +3,7 @@ import App from './App'
 
 // BootstrapVue add
 import BootstrapVue from 'bootstrap-vue'
+import { VBPopoverPlugin } from 'bootstrap-vue'
 // Router & Store add
 import router from './router'
 import store from './store'
@@ -25,6 +26,7 @@ import VueLineClamp from 'vue-line-clamp'
 import VueScrollTo from 'vue-scrollto'
 import { getCurrentLanguage } from './utils'
 
+Vue.use(VBPopoverPlugin)
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);
 const messages = { en: en, es: es };

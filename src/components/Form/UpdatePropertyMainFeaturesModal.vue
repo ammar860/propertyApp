@@ -7,7 +7,7 @@
       modal-class="modal-right"
     >
       <b-form class="av-tooltip tooltip-label-bottom">
-        <b-form-group label="Rooms" class="has-float-label">
+        <b-form-group label="Rooms">
           <b-form-spinbutton
             class="w-50"
             min="0"
@@ -18,7 +18,7 @@
             :max-rows="2"
           />
         </b-form-group>
-        <b-form-group label="Living space" class="has-float-label">
+        <b-form-group label="Living space">
           <b-input-group class="w-50">
             <template #append>
               <b-input-group-text>&#13217;</b-input-group-text>
@@ -33,7 +33,7 @@
             />
           </b-input-group>
         </b-form-group>
-        <b-form-group label="Street &amp; Nr" class="has-float-label">
+        <b-form-group label="Street &amp; Nr">
           <b-form-input
             v-model="item.Street"
             placeholder="Enter your street number"
@@ -42,7 +42,7 @@
             :max-rows="2"
           />
         </b-form-group>
-        <b-form-group label="Zip code &amp; City" class="has-float-label">
+        <b-form-group label="Zip code &amp; City">
           <b-form-input
             v-model="item.ZipCodeOrCity"
             placeholder="Enter your zip code followed by your city name"
@@ -98,29 +98,43 @@ export default {
         ZipCodeOrCity: this.item.ZipCodeOrCity,
         Availibility: this.item.Availibility,
       };
-      console.log(mainFeatures);
+
+      var pkID;
+
+      if (!this.item.propertyId) {
+        let uri = window.location.search.substring(1);
+        let id = new URLSearchParams(uri);
+        pkID = id.get("p");
+      } else {
+        pkID = this.item.propertyId;
+      }
 
       try {
         const res = await this.updatePropertyFeatures({
-        pk: this.item.propertyId,
-        payload: mainFeatures,
-        config: this.config,
-      });
-
-      if (res.status == 200 || res.status == 201) {
-        this.$notify("Success", "Request made: Update viewed property's main features.", "Result: Main features updated successfully.", {
-          type: "success",
-          permanent: false,
-          duration: 5000,
+          pk: pkID,
+          payload: mainFeatures,
+          config: this.config,
         });
-        this.hideModal("mainFeaturesModal");
-      }
-      } catch (error) {
+
+        if (res.status == 200 || res.status == 201) {
+          this.$notify(
+            "Success",
+            "Request made: Update viewed property's main features.",
+            "Result: Main features updated successfully.",
+            {
+              type: "success",
+              permanent: false,
+              duration: 5000,
+            }
+          );
+          this.hideModal("mainFeaturesModal");
+        }
+      } catch (err) {
         this.$notify(
           "Error",
           "Request made: Update viewed property's main features.",
           "Result: Error when updating main features. Respose sent:" + err.status ==
-            400 || 401
+            400 || err.status == 500
             ? "Access denied!"
             : "Unexpected server error! Please try later.",
           {
@@ -129,6 +143,7 @@ export default {
             type: "error",
           }
         );
+        this.hideModal("mainFeaturesModal");
       }
     },
     hideModal(refname) {

@@ -12,7 +12,7 @@
         </div>
         <b-button class="mt-3" variant="outline-danger" block @click="deleteItem()"
           ><span style="font-size: 18px"
-            ><i class="iconsminds-trash-with-men"></i>Confirm</span
+            ><i class="iconsminds-delete-file"></i>Confirm</span
           ></b-button
         >
         <b-button

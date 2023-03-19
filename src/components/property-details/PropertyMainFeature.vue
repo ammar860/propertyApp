@@ -15,8 +15,8 @@
           </h3>
         </b-colxx>
         <b-colxx class="d-flex justify-content-end" xxs="3">
+          <!-- :class="{ blink_btn: isHovering }" -->
           <b-button
-            :class="{ blink_btn: isHovering }"
             style="height: max-content; margin-top: 5%"
             variant="outline-success"
             v-b-modal.mainFeaturesModal
@@ -141,6 +141,22 @@ export default {
 </script>
 
 <style>
+.rowsLbl {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 200;
+  font-size: 12px;
+  color: #717171 !important;
+}
+
+.rowsVal {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  color: #212121 !important;
+}
+
 @keyframes glowing {
   0% {
     background-color: white;
