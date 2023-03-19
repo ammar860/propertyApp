@@ -15,8 +15,8 @@
           </h3>
         </b-colxx>
         <b-colxx class="d-flex justify-content-end" xxs="3">
+          <!-- :class="{ blink_btn: isHovering }" -->
           <b-button
-            :class="{ blink_btn: isHovering }"
             style="height: max-content; margin-top: 5%"
             variant="outline-success"
             v-b-modal.propertyDetailsModal
