@@ -221,6 +221,7 @@ export default {
               type: "success",
             }
           );
+          this.$emit("updateData");
           this.hideModal("propFurnishingEditModal");
         }
       } catch (err) {
@@ -240,7 +241,6 @@ export default {
       }
     },
     hideModal(refname) {
-      this.$emit("updateData");
       this.$refs[refname].hide();
     },
   },

@@ -127,6 +127,7 @@ export default {
               duration: 5000,
             }
           );
+          this.$emit("updateData");
           this.hideModal("mainFeaturesModal");
         }
       } catch (err) {
@@ -147,7 +148,6 @@ export default {
       }
     },
     hideModal(refname) {
-      this.$emit("updateData");
       this.$refs[refname].hide();
     },
   },

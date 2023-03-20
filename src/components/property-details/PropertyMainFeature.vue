@@ -132,7 +132,7 @@ export default {
       this.mainFeature = value.mainFeature;
     },
   },
-  mounted() {
+  created() {
     this.updateData();
   },
   methods: {

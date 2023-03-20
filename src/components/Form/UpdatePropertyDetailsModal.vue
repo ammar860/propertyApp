@@ -202,6 +202,7 @@ export default {
               type: "success",
             }
           );
+          this.$emit("updateData");
           this.hideModal("propertyDetailsModal");
         }
       } catch (err) {
@@ -222,7 +223,6 @@ export default {
       }
     },
     hideModal(refname) {
-      this.$emit("updateData");
       this.$refs[refname].hide();
     },
     // format_number(e) {

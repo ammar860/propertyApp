@@ -56,6 +56,7 @@ export default {
               permanent: false,
             }
           );
+          this.$emit("fetchPublishings");
           this.hideModal("settingPortalInfoDelete");
         }
       } catch (err) {
@@ -76,7 +77,6 @@ export default {
       }
     },
     hideModal(refname) {
-      this.$emit("fetchPublishings");
       this.$refs[refname].hide();
     },
   },

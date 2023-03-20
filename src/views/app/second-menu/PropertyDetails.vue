@@ -215,7 +215,7 @@ export default {
 
         if (res.status == 200) {
           this.details = res.data;
-          this.$store.dispatch("setSelectedProp", this.details);
+          // this.$store.dispatch("setSelectedProp", this.details);
         }
       } catch (error) {
         this.$notify(

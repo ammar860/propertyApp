@@ -171,6 +171,7 @@ export default {
             duration: 5000,
             permanent: false,
           });
+          this.$emit("updateData");
           this.hideModal("propOwnerEditModal");
         } else {
           this.$notify("Error", "Owner could not be assigned.", res.status, {
@@ -188,7 +189,6 @@ export default {
       }
     },
     hideModal(refname) {
-      this.$emit("updateData");
       this.$refs[refname].hide();
     },
   },

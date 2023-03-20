@@ -115,6 +115,7 @@ export default {
             }
           );
           this.hideModal("settingPortalInfoCreate");
+          this.$emit("fetchPublishings");
           // window.location.reload();
         }
       } catch (err) {}
@@ -126,11 +127,7 @@ export default {
       return regex.test(url);
     },
     hideModal(refname) {
-      this.$emit("fetchPublishings");
       this.$refs[refname].hide();
-      this.ftpHost = "";
-      this.userName = "";
-      this.password = "";
     },
   },
   computed: {

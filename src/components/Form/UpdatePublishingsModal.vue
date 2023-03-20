@@ -81,6 +81,7 @@ export default {
             duration: 5000,
           }
         );
+        this.$emit("fetchPublishings");
         this.hideModal("settingPortalInfoEdit");
         // window.location.reload();
       }
@@ -92,7 +93,6 @@ export default {
       return regex.test(url);
     },
     hideModal(refname) {
-      this.$emit("fetchPublishings");
       this.$refs[refname].hide();
     },
   },
