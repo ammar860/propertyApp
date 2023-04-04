@@ -11,6 +11,7 @@
         </b-col>
         <b-col class="d-flex justify-content-end" xxs="3">
           <b-button
+            v-if="currentUser.roles === 'Admin' || currentUser.roles === 'SuperAdmin' || currentUser.roles === 'Agent'"
             class="mt-2"
             style="height: 71%"
             variant="outline-success"
@@ -50,7 +51,7 @@
         <b-row class="ml-2">
           <b-col class="rowsLbl" cols="4">Price:</b-col>
           <b-col>
-            <p v-if="costItem.price" class="rowsVal">CHF {{ costItem.price }}</p>
+            <p v-if="costItem.price" class="rowsVal">CHF {{ costItem.price.toLocaleString('en', {useGrouping:true}) }}</p>
             <p v-else class="rowsVal">-</p>
           </b-col>
         </b-row>
@@ -60,6 +61,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import UpdatePropertyCostModal from "../Form/UpdatePropertyCostModal.vue";
 
 export default {
@@ -93,6 +95,9 @@ export default {
       this.$emit("fetchProperty");
     }
   },
+  computed: {
+    ...mapGetters(["currentUser"])
+  }
 };
 </script>
 

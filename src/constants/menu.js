@@ -67,6 +67,7 @@ const data = [
     icon: "simple-icon-settings",
     label: "menu.settings",
     to: `${adminRoot}/settings`,
+    roles: [UserRole.SuperAdmin, UserRole.Admin],
   },
   // {
   //   id: "pages",

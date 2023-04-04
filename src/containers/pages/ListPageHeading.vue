@@ -22,6 +22,7 @@
         <b-col>
           <div class="top-right-button-container">
             <b-button
+              v-if="currentUser.roles === 'Admin' || currentUser.roles === 'SuperAdmin'"
               v-b-modal.modalAddProp
               variant="primary"
               size="lg"
@@ -266,7 +267,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["config"]),
+    ...mapGetters(["config", "currentUser"]),
   },
 };
 </script>
