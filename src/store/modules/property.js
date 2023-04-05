@@ -291,6 +291,13 @@ const actions = {
     );
     return res;
   },
+  async UpdatePropertyImage({ commit }, { pk, payload, config }) {
+    const res = await axios.post(
+      apiUrl + "images/UpdatePostion",payload,
+      config
+    );
+    return res;
+  },
   async updatePublicationStatus({ commit }, { pk, ps, config }) {
     const res = await axios.patch(apiUrl + "property/updatePublicationStatus/" + pk + "/" + ps, {}, config);
     return res;

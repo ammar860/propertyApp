@@ -101,7 +101,6 @@ export default {
           if (res.status == 200 || res.status == 201) {
             let propLst = _.sortBy(res.data, this.sort.column);
             this.items = propLst;
-            console.log(this.items);
             this.total = this.items.length;
             this.$store.dispatch("setProperties", this.items);
             this.selectedItems = [];
@@ -243,7 +242,6 @@ export default {
     changeOrderBy(sort) {
       this.sort = sort;
       let propLst = _.sortBy(this.items.ignoreCase, sort.column);
-      console.log(sort.column);
       this.items = propLst;
       this.paginate(this.perPage, this.page - 1);
     },
