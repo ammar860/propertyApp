@@ -27,6 +27,7 @@ export default {
       state.currentUser = payload;
       state.isAuthGuardActive = true;
       state.loginError = null;
+      state.isLogin = true;
       state.config = {
         headers: {
           Authorization: `Bearer ${payload.token}`,
@@ -37,6 +38,7 @@ export default {
       state.currentUser = null;
       state.isAuthGuardActive = false;
       state.loginError = null;
+      state.isLogin = false;
       state.config = {};
     },
     setError(state, payload) {
@@ -70,6 +72,7 @@ export default {
           token: token,
           ...data,
         };
+        console.log(item.role);
         if (item.role == UserRole.Admin) {
           let config = {
             headers: {
@@ -78,16 +81,19 @@ export default {
           };
           const res1 = await axios.get(apiUrl + "users/findUser/" + id, config);
           let agencyId = res1.data.agencyId;
+          console.log(res1);
           const res2 = await axios.get(
             apiUrl + "agency/findAgency/" + agencyId,
             config
           );
+
           let agencyName = res2.data.name;
           item["agencyId"] = agencyId;
           item["agencyName"] = agencyName;
         }
-        setCurrentUser({ ...item });
+        await setCurrentUser({ ...item });
         commit("setUser", item);
+
       }
       return res;
     },

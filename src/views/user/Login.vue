@@ -104,7 +104,6 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { validationMixin } from "vuelidate";
-// import axios from "axios";
 // import jwt_decode from "jwt-decode";
 // import { apiUrl } from "../../constants/config";
 import { adminRoot } from "../../constants/config";
