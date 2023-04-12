@@ -22,7 +22,7 @@
         <b-col>
           <div class="top-right-button-container">
             <b-button
-              v-if="currentUser.roles === 'Admin' || currentUser.roles === 'SuperAdmin'"
+              v-if="currentUser &&  (currentUser.roles === 'Admin' || currentUser.roles === 'SuperAdmin')"
               v-b-modal.modalAddProp
               variant="primary"
               size="lg"
@@ -216,7 +216,6 @@ export default {
   },
   watch: {
     selectedItems(value) {
-      console.log(value);
       this.items = value;
     },
   },

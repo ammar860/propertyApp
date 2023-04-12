@@ -113,7 +113,7 @@
           {{ data.createdDate }}
         </p>
         <p class="mb-0 text-small w-15 w-sm-100" style="color: #3755f2">
-          {{ data.user.roles }}
+          {{ data.user ? data.user.roles : ''  }}
         </p>
 
         <div class="w-15 w-sm-100">
@@ -125,7 +125,7 @@
           }}</b-badge>
         </div>
         <!-- <div class="w-15 w-sm-100">
-          <b-button v-b-modal.modalEditProp variant="primary" size="sm" 
+          <b-button v-b-modal.modalEditProp variant="primary" size="sm"
             ><i class="iconsminds-file-edit" style="position: relative"></i
             >Edit</b-button
           >

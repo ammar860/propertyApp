@@ -11,7 +11,7 @@
         </b-col>
         <b-col class="d-flex justify-content-end" xxs="3">
           <b-button
-            v-if="currentUser.roles === 'Admin' || currentUser.roles === 'SuperAdmin' || currentUser.roles === 'Agent'"
+            v-if="currentUser && (currentUser.roles === 'Admin' || currentUser.roles === 'SuperAdmin' || currentUser.roles === 'Agent')"
             class="mt-2"
             style="height: 71%"
             variant="outline-success"
