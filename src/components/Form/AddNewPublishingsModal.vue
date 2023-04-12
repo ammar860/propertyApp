@@ -71,7 +71,6 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { getCurrentUser } from "../../utils";
 export default {
   name: "AddNewPublishingsModal",
   data() {
@@ -94,7 +93,7 @@ export default {
           password: this.password,
         };
 
-        let user = getCurrentUser();
+        let user = this.currentUser;
         let id = user.agencyId;
 
         const res = await this.createSettings({
@@ -131,7 +130,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["config"]),
+    ...mapGetters(["config", "currentUser"]),
     hostState() {
       return this.validURL(this.ftpHost) ? true : false;
     },

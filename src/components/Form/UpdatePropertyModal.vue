@@ -57,9 +57,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import { getCurrentUser } from "../../utils";
-import { apiUrl } from "../../constants/config";
 import { mapActions, mapGetters } from "vuex";
 import { UserRole } from "../../utils/auth.roles";
 import { payment_types, property_types } from "../../utils/property.consts";

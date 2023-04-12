@@ -84,7 +84,6 @@
 </template>
 
 <script>
-import { getCurrentUser } from "@/utils";
 import { PortalsIcon } from "@/components/Svg";
 import { mapActions, mapGetters } from "vuex";
 import UpdatePublishingsModal from "../../../components/Form/UpdatePublishingsModal.vue";
@@ -109,7 +108,7 @@ export default {
     };
   },
   mounted() {
-    let user = getCurrentUser();
+    let user = this.currentUser;
     // console.log(user);
     this.agencyName = user.agencyName;
     this.agencyID = user.agencyId;
@@ -202,7 +201,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["config"]),
+    ...mapGetters(["config", "currentUser"]),
     orderedSettings: function() {
       var _ = require("lodash");
       return _.orderBy(this.settings, "id");

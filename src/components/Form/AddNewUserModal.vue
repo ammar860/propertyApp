@@ -82,7 +82,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { getCurrentUser } from "../../utils";
 import { UserRole } from "../../utils/auth.roles";
 
 export default {
@@ -91,7 +90,7 @@ export default {
     ...mapGetters(["currentUser", "agenciesList", "responseAG"]),
   },
   async mounted() {
-    let ur = getCurrentUser();
+    let ur = this.currentUser;
     this.newItem.agencyID = ur.agencyId;
     if (ur.role == UserRole.SuperAdmin) {
       this.roles = [

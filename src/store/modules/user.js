@@ -1,4 +1,4 @@
-import { setCurrentUser } from "../../utils";
+// import { setCurrentUser } from "../../utils";
 import createPersistedState from "vuex-persistedstate";
 import { UserRole } from "../../utils/auth.roles";
 import { apiUrl } from "../../constants/config";
@@ -91,17 +91,18 @@ export default {
           item["agencyId"] = agencyId;
           item["agencyName"] = agencyName;
         }
-        await setCurrentUser({ ...item });
+        // await setCurrentUser({ ...item });
         commit("setUser", item);
 
       }
       return res;
     },
     signOut({ commit }) {
-      setCurrentUser({
+      let usr = {
         title: "None",
         roles: "None",
-      });
+      };
+      commit("setUser", usr);
       commit("setLogout");
     },
   },

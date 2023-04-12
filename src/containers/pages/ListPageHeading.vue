@@ -158,7 +158,6 @@ import { DataListIcon, ThumbListIcon, ImageListIcon } from "../../components/Svg
 import AddNewPropertyModal from "../../components/Form/AddNewPropertyModal.vue";
 import DeletePropertyModal from "../../components/Form/DeletePropertyModal.vue";
 import UpdatePropertyModal from "../../components/Form/UpdatePropertyModal.vue";
-import { getCurrentUser } from "../../utils";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -229,7 +228,7 @@ export default {
       this.$emit("fetchList");
     },
     async publishAll() {
-      let user = getCurrentUser();
+      let user = this.currentUser;
       let id = user.agencyId;
 
       try {

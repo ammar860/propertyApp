@@ -152,7 +152,6 @@ import AddNewAgencyModal from "../../../components/Form/AddNewAgencyModal.vue";
 import UpdateAgencyModal from "../../../components/Form/UpdateAgencyModal.vue";
 import axios from "axios";
 import { apiUrl } from "../../../constants/config";
-import { getCurrentUser } from "../../../utils";
 export default {
   name: "Agency",
   components: {
@@ -202,7 +201,7 @@ export default {
     };
   },
   async created() {
-    var user = getCurrentUser();
+    var user = this.currentUser;
     console.log(user);
     if (user.role != UserRole.SuperAdmin) {
       var config = {

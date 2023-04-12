@@ -53,8 +53,7 @@ import axios from "axios";
 import { apiUrl } from "../../../constants/config";
 import ListPageHeading from "../../../containers/pages/ListPageHeading";
 import ListPageListing from "../../..//containers/pages/ListPageListing";
-
-import { getCurrentUser } from "../../../utils";
+import {mapGetters} from "vuex";
 export default {
   name: "PropertiesListing",
   components: {
@@ -88,7 +87,7 @@ export default {
       var _ = require("lodash");
       this.isLoad = false;
 
-      var user = getCurrentUser();
+      var user = this.currentUser;
       var config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -158,7 +157,7 @@ export default {
       var _ = require("lodash");
       this.isLoad = false;
 
-      var user = getCurrentUser();
+      var user = this.currentUser;
       var config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -334,6 +333,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(["currentUser"]),
     isSelectedAll() {
       return this.selectedItems.length >= this.items.length;
     },

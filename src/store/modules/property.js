@@ -1,6 +1,5 @@
 import axios from "axios";
 import { apiUrl } from "../../constants/config";
-import { getCurrentUser } from "../../utils";
 const state = {
   propertiesList: [],
   paginatedList: {

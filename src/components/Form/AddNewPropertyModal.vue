@@ -61,8 +61,6 @@
 
 <script>
 import axios from "axios";
-import $ from "jquery";
-import { getCurrentUser } from "../../utils";
 import { apiUrl } from "../../constants/config";
 import { mapGetters } from "vuex";
 import { UserRole } from "../../utils/auth.roles";
@@ -88,7 +86,7 @@ export default {
     };
   },
   created() {
-    let ur = getCurrentUser();
+    let ur = this.currentUser;
     if (ur.role != UserRole.SuperAdmin) {
       this.newItem.agencyID = ur.agencyId;
     }
@@ -119,7 +117,7 @@ export default {
     //   });
     // },
     addNewProperty() {
-      let user = getCurrentUser();
+      let user = this.currentUser;
 
       var config = {
         headers: {

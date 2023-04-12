@@ -1,6 +1,7 @@
 import axios from "axios";
 import { apiUrl } from "../../constants/config";
-import { getCurrentUser } from "../../utils";
+import store from "src/store/index.js";
+
 const state = {
   agenciesList: [],
   processingAgency: false,
@@ -36,7 +37,7 @@ const mutations = {
 const actions = {
   async setAgencies({ commit }) {
     commit("setProcessingAgency", true);
-    let user = getCurrentUser();
+    let user = store.getters.currentUser;
 
     var config = {
       headers: {
@@ -56,7 +57,7 @@ const actions = {
   },
   async createAgency({commit},payload) {
     commit("setProcessingAgency", true);
-    let user = getCurrentUser();
+    let user = store.getters.currentUser;
     let name = payload.agencyName
     let pst = Number(payload.postal_code);
 
@@ -81,7 +82,7 @@ const actions = {
   },
   async deleteAgency({commit}, payload) {
     commit("setProcessingAgency", true);
-    let user = getCurrentUser();
+    let user = store.getters.currentUser;
     let id = payload.data.id;
     var config = {
       headers: {
@@ -102,7 +103,7 @@ const actions = {
   },
   async updateAgency({commit}, payload) {
     commit("setProcessingAgency", true);
-    let user = getCurrentUser();
+    let user = store.getters.currentUser;
     let id = payload.agencyID;
     var config = {
       headers: {

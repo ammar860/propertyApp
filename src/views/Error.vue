@@ -34,9 +34,6 @@
   </div>
 </template>
 <script>
-import { adminRoot } from '../constants/config';
-import { getCurrentUser } from '../utils';
-import { UserRole } from '../utils/auth.roles';
 export default {
   methods: {
     goBack() {
