@@ -60,18 +60,25 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "UpdateAgencyModal",
   computed: {
-    ...mapGetters(["currentUser"]),
+    ...mapGetters(["currentUser", "config"]),
   },
   props: {
     item: {},
   },
   methods: {
-    ...mapActions(["updateAgency"]),
-    ...mapActions(["setAgencies"]),
+    ...mapActions({
+      setAgencies:"setAgencies",
+      updateAgency: "updateAgency",
+    }),
     editAgency() {
-      this.updateAgency(this.$props.item);
+      this.updateAgency({
+        payload: this.$props.item,
+        config: this.config,
+      });
       this.$nextTick(() => {
-        this.setAgencies();
+        this.setAgencies({
+          config: this.config,
+        });
       });
       this.hideModal("upmodalright");
     },

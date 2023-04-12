@@ -1,7 +1,7 @@
 import axios from "axios";
 import { apiUrl } from "../../constants/config";
 import { UserRole } from "../../utils/auth.roles";
-import {store} from "src/store/index.js";
+// import {store} from "src/store/index.js";
 const state = {
   agentsList: [],
   processingAgent: false,
@@ -50,15 +50,8 @@ const mutations = {
 };
 
 const actions = {
-  async setAgents({ commit }) {
+  async setAgents({ commit }, {config, user}) {
     commit("setProcessingAgent", true);
-    let user = store.getters.currentUser;
-
-    var config = {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    };
     await axios.get(apiUrl + "users/findallUsers", config).then((res) => {
       if (res.status == 200) {
         if (user.role == UserRole.SuperAdmin) {
@@ -75,15 +68,8 @@ const actions = {
       }
     });
   },
-  async createAgent({ commit }, payload) {
+  async createAgent({ commit }, {payload, config}) {
     commit("setProcessingAgent", true);
-    let user = store.getters.currentUser;
-
-    var config = {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    };
     await axios
       .post(apiUrl + 'users/signup/'+payload.agencyID, payload.user, config)
       .then((res) => {
@@ -100,15 +86,8 @@ const actions = {
         commit("setResponseAG", err);
       });
   },
-  async deleteAgent({ commit }, payload) {
+  async deleteAgent({ commit }, {payload, config}) {
     commit("setProcessingAgent", true);
-    let user = store.getters.currentUser;
-
-    var config = {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    };
     await axios
       .delete(apiUrl + "users/deleteUser/" + payload.data.id, config)
       .then((res) => {
@@ -121,15 +100,9 @@ const actions = {
         console.log(err);
       });
   },
-  async updateAgent({ commit }, payload) {
+  async updateAgent({ commit }, {payload, config}) {
     commit("setProcessingAgent", true);
-    let user = store.getters.currentUser;
     let id = payload.userId;
-    var config = {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    };
     await axios
       .patch(apiUrl + "users/updateUser/" + id, payload.data, config)
       .then((res) => {

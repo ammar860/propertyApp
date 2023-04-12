@@ -9,8 +9,7 @@
       <b-form>
         <b-form-group label="Agency">
           <b-form-select v-model="item.agencyId" disabled>
-            <template #first>
-            </template>
+            <template #first> </template>
             <b-form-select-option
               v-for="agency in agenciesList"
               :key="agency.id"
@@ -24,32 +23,16 @@
           <b-form-input v-model="item.data.email" :rows="2" :max-rows="2" />
         </b-form-group>
         <b-form-group label="First Name">
-          <b-form-input
-            v-model="item.data.firstName"
-            :rows="2"
-            :max-rows="2"
-          />
+          <b-form-input v-model="item.data.firstName" :rows="2" :max-rows="2" />
         </b-form-group>
         <b-form-group label="Last Name">
-          <b-form-input
-            v-model="item.data.lastName"
-            :rows="2"
-            :max-rows="2"
-          />
+          <b-form-input v-model="item.data.lastName" :rows="2" :max-rows="2" />
         </b-form-group>
         <b-form-group label="Username">
-          <b-form-input
-            v-model="item.data.userName"
-            :rows="2"
-            :max-rows="2"
-          />
+          <b-form-input v-model="item.data.userName" :rows="2" :max-rows="2" />
         </b-form-group>
         <b-form-group label="Description">
-          <b-textarea
-            v-model="item.data.description"
-            :rows="2"
-            :max-rows="2"
-          />
+          <b-textarea v-model="item.data.description" :rows="2" :max-rows="2" />
         </b-form-group>
         <b-form-group label="Status">
           <b-form-radio-group
@@ -73,20 +56,18 @@
         <b-button variant="outline-secondary" @click="hideModal('upmodalright')"
           >Cancel</b-button
         >
-        <b-button variant="primary" @click="updateUser()" class="mr-1"
-          >Edit</b-button
-        >
+        <b-button variant="primary" @click="updateUser()" class="mr-1">Edit</b-button>
       </template>
     </b-modal>
   </div>
 </template>
-    
+
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "UpdateUserModal",
   computed: {
-    ...mapGetters(["currentUser", "agenciesList"]),
+    ...mapGetters(["currentUser", "agenciesList", "config"]),
   },
   props: {
     item: {},
@@ -102,11 +83,20 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setAgents", "updateAgent"]),
-    updateUser() {
-      this.$store.dispatch("updateAgent", this.$props.item);
+    ...mapActions({
+      setAgents:"setAgents",
+      updateAgent: "updateAgent"
+    }),
+    async updateUser() {
+      await this.updateAgent({
+        payload: this.$props.item,
+        config: this.config,
+      })
       this.$nextTick(() => {
-        this.setAgents();
+        this.setAgents({
+          config: this.config,
+          user: this.currentUser,
+        });
       });
     },
     hideModal(refname) {
@@ -115,5 +105,3 @@ export default {
   },
 };
 </script>
-      
-      

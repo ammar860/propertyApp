@@ -127,7 +127,7 @@
 
 <script>
 import { UserRole } from "../../../utils/auth.roles";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import AddNewUserModal from "../../../components/Form/AddNewUserModal.vue";
 import UpdateUserModal from "../../../components/Form/UpdateUserModal.vue";
 
@@ -138,8 +138,7 @@ export default {
     "update-user-modal": UpdateUserModal,
   },
   computed: {
-    ...mapGetters(["currentUser", "agentsList"]),
-    ...mapGetters(["processingAgent"]),
+    ...mapGetters(["currentUser", "agentsList", "processingAgent", "config"]),
   },
   data() {
     return {
@@ -194,22 +193,38 @@ export default {
       },
     };
   },
-  mounted() {
-    this.$store.dispatch("setAgents");
+  async mounted() {
+    await this.setAgents({
+      config: this.config,
+      user: this.currentUser,
+    });
   },
-  updated() {
-    this.$root.$on('bv::modal::hide', function(e) {
-      this.$store.dispatch("setAgents");
-    })
+  async updated() {
+    this.$root.$on('bv::modal::hide', await function(e) {
+      this.setAgents({
+        config: this.config,
+        user: this.currentUser,
+      });
+    });
   },
   methods: {
+    ...mapActions({
+      setAgents: "setAgents",
+      deleteAgent: "deleteAgent",
+    }),
     async deleteUser(data, index) {
       let payload = {
         data,
         index,
       };
-      await this.$store.dispatch("deleteAgent", payload);
-      this.$store.dispatch("setAgents");
+      await this.deleteAgent({
+        payload: payload,
+        config: this.config,
+      });
+      await this.setAgents({
+        config: this.config,
+        user: this.currentUser,
+      });
     },
     updateUser(index) {
       if (this.currentUser.role == UserRole.SuperAdmin) {

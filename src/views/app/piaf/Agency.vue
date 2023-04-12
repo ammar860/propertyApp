@@ -33,11 +33,7 @@
                 </b-colxx>
                 <b-colxx
                   xxs="6"
-                  style="
-                    display: flex;
-                    justify-content: flex-end;
-                    padding-bottom: 1rem;
-                  "
+                  style="display: flex; justify-content: flex-end; padding-bottom: 1rem"
                 >
                   <b-button
                     v-if="currentUser.role == UserRole.SuperAdmin"
@@ -46,11 +42,7 @@
                   >
                     <i
                       class="simple-icon-plus"
-                      style="
-                        padding-inline: 0.5rem;
-                        top: 1px;
-                        position: relative;
-                      "
+                      style="padding-inline: 0.5rem; top: 1px; position: relative"
                     >
                     </i>
                     Create Agency
@@ -159,7 +151,7 @@ export default {
     "update-agency-modal": UpdateAgencyModal,
   },
   computed: {
-    ...mapGetters(["currentUser", "agenciesList", "processingAgency"]),
+    ...mapGetters(["currentUser", "agenciesList", "processingAgency", "config"]),
   },
   data() {
     return {
@@ -230,15 +222,25 @@ export default {
     }
   },
   async mounted() {
-    this.setAgencies();
+    this.setAgencies({
+      config: this.config,
+    });
   },
   methods: {
-    ...mapActions(["setAgencies"]),
+    ...mapActions({ 
+      setAgencies: "setAgencies",
+      setDel: "deleteAgency",
+    }),
     async deleteAgency(data, index) {
       let payload = { data, index };
-      await this.$store.dispatch("deleteAgency", payload);
+      await this.setDel({
+        payload: payload,
+        config: this.config,
+      });
       this.$nextTick(() => {
-        this.setAgencies();
+        this.setAgencies({
+          config: this.config,
+        });
       });
     },
     updateAgency(data, index) {
@@ -262,5 +264,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

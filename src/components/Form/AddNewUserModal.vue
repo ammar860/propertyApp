@@ -81,13 +81,13 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { UserRole } from "../../utils/auth.roles";
 
 export default {
   name: "AddNewUserModal",
   computed: {
-    ...mapGetters(["currentUser", "agenciesList", "responseAG"]),
+    ...mapGetters(["currentUser", "agenciesList", "responseAG", "config"]),
   },
   async mounted() {
     let ur = this.currentUser;
@@ -125,10 +125,20 @@ export default {
     };
   },
   methods: {
-    addUser() {
-      this.$store.dispatch("createAgent", this.newItem);
+    ...mapActions({
+      setAgents: "setAgents",
+      createAgent: "createAgent"
+    }),
+    async addUser() {
+      await this.createAgent({
+        payload: this.newItem,
+        config: this.config,
+      });
       this.hideModal("modalright");
-      this.$store.dispatch("setAgents");
+      await this.setAgents({
+        config: this.config,
+        user: this.currentUser,
+      });
       this.$nextTick(() => {
         if (this.responseAG.status == 200 || this.responseAG.status == 201) {
           this.$notify(

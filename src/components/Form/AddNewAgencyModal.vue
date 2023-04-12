@@ -63,7 +63,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "AddNewAgencyModal",
   computed: {
-    ...mapGetters(["currentUser"]),
+    ...mapGetters(["currentUser", "config"]),
   },
   data() {
     return {
@@ -79,11 +79,19 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setAgencies"]),
+    ...mapActions({
+      setAgencies: "setAgencies",
+      createAgency: "createAgency",
+    }),
     addNewItem() {
-      this.$store.dispatch("createAgency", this.newItem);
+      this.createAgency({
+        payload:this.newItem,
+        config: this.config,
+      });
       this.$nextTick(() => {
-        this.setAgencies();
+        this.setAgencies({
+          config: this.config,
+        });
       });
       this.hideModal("modalright");
     },
