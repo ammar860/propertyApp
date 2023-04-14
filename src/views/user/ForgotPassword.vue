@@ -31,14 +31,14 @@
                 type="submit"
                 variant="primary"
                 size="lg"
-                :disabled="processing"
                 :class="{
-                  'btn-multiple-state btn-shadow': true,
-                  'show-spinner': processing,
-                  'show-success': !processing && loginError === false,
-                  'show-fail': !processing && loginError,
+                  'btn-multiple-state btn-shadow': true
                 }"
               >
+              <!-- :disabled="processing"
+              'show-spinner': processing,
+                  'show-success': !processing && loginError === false,
+                  'show-fail': !processing && loginError, -->
                 <span class="spinner d-inline-block">
                   <span class="bounce1"></span>
                   <span class="bounce2"></span>

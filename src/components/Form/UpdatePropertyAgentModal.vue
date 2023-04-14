@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import { apiUrl } from "../../constants/config";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -60,12 +58,12 @@ export default {
   mounted() {
     // console.log(this.agentsList);
     this.agentsList.forEach((el) => {
-      if(el.roles == "Agent") {
+      if(el.roles == "Agent" && el.agencyId === this.currentUser.agencyId) {
         let elem = {
           text: el.firstName + " " + el.lastName,
           value: el.id,
         };
-        this.agentLst.push({...elem})
+        this.agentLst.push({...elem});
       }
     })
     // console.log(this.agentLst);
@@ -144,7 +142,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["config", "agentsList"]),
+    ...mapGetters(["config", "agentsList", "currentUser"]),
   },
 };
 </script>
