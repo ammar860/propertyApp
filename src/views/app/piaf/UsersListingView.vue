@@ -187,6 +187,7 @@ export default {
             lastName: String,
             userName:String,
             description: String,
+            contact: Number,
             status: String,
             roles: String,
           }
@@ -238,6 +239,7 @@ export default {
             lastName: this.agentsList[index].lastName,
             userName: this.agentsList[index].userName,
             description: this.agentsList[index].description,
+            contact: this.agentsList[index].contact,
             status: this.agentsList[index].status,
             roles: this.agentsList[index].roles,
           },
@@ -253,6 +255,7 @@ export default {
             lastName: this.agentsList[index].lastName,
             userName: this.agentsList[index].userName,
             description: this.agentsList[index].description,
+            contatct: this.agentsList[index].contact,
             status: this.agentsList[index].status,
             roles: this.agentsList[index].roles,
           },

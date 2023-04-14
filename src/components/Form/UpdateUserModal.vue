@@ -34,6 +34,9 @@
         <b-form-group label="Description">
           <b-textarea v-model="item.data.description" :rows="2" :max-rows="2" />
         </b-form-group>
+        <b-form-group label="Contact">
+          <b-form-input v-model="item.data.contact" :rows="2" :max-rows="2" />
+        </b-form-group>
         <b-form-group label="Status">
           <b-form-radio-group
             stacked

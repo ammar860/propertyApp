@@ -45,6 +45,9 @@
         <b-form-group label="Description">
           <b-textarea v-model="newItem.user.description" :rows="2" :max-rows="2" />
         </b-form-group>
+        <b-form-group label="Contact">
+          <b-form-input v-model="newItem.user.contact" :rows="2" :max-rows="2" />
+        </b-form-group>
         <b-form-group label="Status">
           <b-form-radio-group
             stacked
@@ -118,6 +121,7 @@ export default {
           description: "",
           status: "",
           roles: "",
+          contact: "",
         },
       },
       statuses: ["Active", "In Active"],
@@ -127,38 +131,30 @@ export default {
   methods: {
     ...mapActions({
       setAgents: "setAgents",
-      createAgent: "createAgent"
+      createAgent: "createAgent",
     }),
     async addUser() {
       await this.createAgent({
         payload: this.newItem,
         config: this.config,
       });
-      this.hideModal("modalright");
       await this.setAgents({
         config: this.config,
         user: this.currentUser,
       });
-      this.$nextTick(() => {
-        if (this.responseAG.status == 200 || this.responseAG.status == 201) {
-          this.$notify(
-            "Success",
-            "New user created successfully",
-            this.responseAG.status,
-            {
-              type: "success",
-              duration: 5000,
-              permanent: false,
-            }
-          );
-        } else {
-          this.$notify("Error", "New user could not be created", this.responseAG.status, {
-            type: "error",
-            duration: 5000,
-            permanent: false,
-          });
-        }
-      });
+      if (this.responseAG.status == 200 || this.responseAG.status == 201) {
+        this.$notify("Success", "New user created successfully", this.responseAG.status, {
+          type: "success",
+          duration: 5000,
+          permanent: false,
+        });
+      } else {
+        this.$notify("Error", "New user could not be created", this.responseAG.status, {
+          type: "error",
+          duration: 5000,
+          permanent: false,
+        });
+      }
     },
     hideModal(refname) {
       this.$refs[refname].hide();

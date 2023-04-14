@@ -34,6 +34,7 @@ const mutations = {
       lastName: payload.data.lastName,
       userName: payload.data.userName,
       description: payload.data.description,
+      contact: payload.data.contact,
       status: payload.data.status,
       roles: payload.data.roles,
     };
