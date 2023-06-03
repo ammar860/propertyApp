@@ -13,7 +13,7 @@ export const localeOptions = [
   { id: 'enrtl', name: 'English RTL', direction: 'rtl' }
 ]
 
-export const apiUrl = 'https://app-propertymanagement.herokuapp.com/';
+export const apiUrl = 'https://amsa-property-app.herokuapp.com/';
 
 export const themeRadiusStorageKey = 'theme_radius'
 export const themeSelectedColorStorageKey = 'theme_selected_color'
