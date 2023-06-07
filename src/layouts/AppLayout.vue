@@ -1,13 +1,13 @@
 <template>
   <div id="app-container" :class="getMenuType">
-    <topnav />
-    <sidebar />
+    <topnav v-if="currentUser.roles !== 'Guest'" />
+    <sidebar v-if="currentUser.roles !== 'Guest'" />
     <main>
       <div class="container-fluid">
         <slot></slot>
       </div>
     </main>
-    <footer-component />
+    <footer-component v-if="currentUser.roles !== 'Guest'" />
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getMenuType"])
+    ...mapGetters(["getMenuType", "currentUser"])
   },
   mounted() {
     setTimeout(() => {

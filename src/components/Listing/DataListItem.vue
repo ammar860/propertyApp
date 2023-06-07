@@ -45,11 +45,11 @@
           :to="`/app/second-menu/PropertyDetails?p=${data.id}`"
           class="w-15 text-small w-sm-100"
         >
-          <p class="text-small mb-0 truncate" style="color: #4556ac">
+          <p class="text-small mb-0 truncate" style="color: #4556ac; white-space:pre-line;">
             {{ data.title }}
           </p>
         </router-link>
-        <p class="mb-0 text-muted text-small w-15 w-sm-100">{{ data.type }}</p>
+        <p class="mb-0 text-muted text-small w-15 w-sm-100" style="white-space:pre-line;">{{ data.type }}</p>
         <p
           v-if="data.address == null"
           class="mb-0 text-muted text-small w-15 w-sm-100"
@@ -59,6 +59,7 @@
         <p
           v-else-if="data.address != null"
           class="mb-0 text-muted text-small w-15 w-sm-100"
+          style="white-space:pre-line;"
         >
           {{ data.address }}
         </p>
@@ -71,6 +72,7 @@
         <p
           v-else-if="data.price != null"
           class="mb-0 text-muted text-small w-15 w-sm-100"
+          style="white-space:pre-line;"
         >
           {{ data.price.toLocaleString('en', {useGrouping:true}) }} CHF
         </p>
@@ -84,7 +86,7 @@
         <p
           v-else-if="data.agentId != null"
           class="mb-0 text-small w-15 w-sm-100"
-          style="color: #3757fa"
+          style="color: #3757fa; white-space:pre-line;"
         >
           {{ data.agent.firstName }} {{ data.agent.lastName }}
         </p>
@@ -97,6 +99,7 @@
         <p
           v-else-if="data.updateAt != null"
           class="mb-0 text-muted text-small w-15 w-sm-100"
+          style="white-space:pre-line;"
         >
           {{ data.updateAt }}
         </p>
@@ -109,10 +112,11 @@
         <p
           v-else-if="data.createdDate != null"
           class="mb-0 text-muted text-small w-15 w-sm-100"
+          style="white-space:pre-line;"
         >
           {{ data.createdDate }}
         </p>
-        <p class="mb-0 text-small w-15 w-sm-100" style="color: #3755f2">
+        <p class="mb-0 text-small w-15 w-sm-100" style="color: #3755f2; white-space:pre-line;">
           {{ data.user ? data.user.roles : ''  }}
         </p>
 

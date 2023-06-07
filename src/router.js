@@ -76,7 +76,7 @@ const routes = [
               import(
                 /* webpackChunkName: "piaf" */ "./views/app/second-menu/PropertyDetails"
               ),
-            meta: { loginRequired: true, roles: [UserRole.SuperAdmin, UserRole.Admin, UserRole.Agent, UserRole.Customer, UserRole.Guest] },
+            meta: { loginRequired: true, roles: [UserRole.SuperAdmin, UserRole.Admin, UserRole.Agent, UserRole.Customer] },
           },
         ],
       },
@@ -86,10 +86,10 @@ const routes = [
         meta: { loginRequired: true, roles: [UserRole.SuperAdmin, UserRole.Admin, UserRole.Agent] },
       },
       {
-        path: "single",
+        path: "share-public",
         component: () =>
-          import(/* webpackChunkName: "single" */ "./views/app/single"),
-        meta: { loginRequired: true },
+          import(/* webpackChunkName: "share-public" */ "./views/app/share-public"),
+        meta: { loginRequired: true, roles: [UserRole.Guest] },
       },
     ],
   },

@@ -219,13 +219,19 @@ export default {
       );
       let data = {
         properties: this.paginatedItems,
-        currentPage: this.page,
+        currentPage: page_number,
       };
       this.from = 1;
-      if (this.total % 10 === 0) {
-        this.to = 10;
-      } else {
-        this.to = this.total % 10;
+      if (this.paginatedList.currentPage > 1) {
+        this.from = this.paginatedList.currentPage * 11;
+        this.to = (this.paginatedList.currentPage + 1) * 10;
+      } else if (this.paginatedList.currentPage === 1) {
+        this.from = 1;
+        if (this.paginatedItems.length === 10) {
+          this.to = 10;
+        } else {
+          this.to = this.total % 10;
+        }
       }
       this.$store.dispatch("onPaginationChange", data);
     },
@@ -241,17 +247,23 @@ export default {
     // },
     changeOrderBy(sort) {
       this.sort = sort;
-      let list = _.sortBy(this.items.ignoreCase, sort.column);
-      console.log(list);
+      let list = _.sortBy(this.items, sort.column);
+      this.items = list;
       this.paginate(this.perPage, this.page - 1);
+      let data = {
+        properties: list,
+        currentPage: 0,
+      };
+      this.$store.dispatch("onPaginationChange", data);
+      this.getPropertiesData();
     },
     searchChange(val) {
       this.search = val;
       if (!!this.search) {
-        this.isLoad = false;
-        const found = this.items.filter(({ title }) => this.search === title);
+        this.isLoad = true;
+        const found = _.pullAllWith(this.items, [{ title: this.search }], _.isEqual);
         if (found.length === 0) {
-          this.isLoad = true;
+          this.isLoad = false;
           this.$notify(
             "Error",
             "Endpoint: Search for property(s)",
@@ -263,7 +275,7 @@ export default {
             }
           );
         } else {
-          this.isLoad = true;
+          this.isLoad = false;
           let page_number = this.perPage;
           let page_size = 0;
           this.paginatedItems = found.slice(
@@ -272,9 +284,9 @@ export default {
           );
           let data = {
             properties: found,
-            currentPage: this.page,
+            currentPage: 1,
           };
-          this.$store.dispatch("onSearch", data);
+          this.$store.dispatch("onPaginationChange", data);
         }
       } else {
         this.getPropertiesData();
@@ -365,7 +377,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["currentUser", "config"]),
+    ...mapGetters(["currentUser", "config", "paginatedList"]),
     isSelectedAll() {
       return this.selectedItems.length >= this.items.length;
     },
