@@ -328,7 +328,8 @@
     "dismissing-text": "Holy guacamole! You should check in on some of those fields below.",
     "dismissing-without-animate-text": "I am an alert and I can be dismissed without animating!",
     "propertyDet404": "Selected property not found!",
-    "go-back-text": "Press the back button and select another item from the properties list."
+    "go-back-text": "Press the back button and select another item from the properties list.",
+    "go-back-text2": "Property does not exist kindly contact company admin for further details."
   },
   "badge": {
     "sizes": "Sizes",

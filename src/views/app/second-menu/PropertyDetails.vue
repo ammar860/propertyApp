@@ -9,12 +9,14 @@
                 ><h1 style="color: red">
                   {{ $t("alert.propertyDet404") }}
                 </h1>
-                <p style="color: crimson">Note: {{ $t("alert.go-back-text") }}</p></span
-              >
+                <p v-if="currentUser.roles !== 'Guest'" style="color: crimson">Note: {{ $t("alert.go-back-text") }}</p>
+                <p v-else-if="currentUser.roles === 'Guest'" style="color: crimson">Note: {{ $t("alert.go-back-text2") }}</p>
+              </span>
             </b-col>
             <b-col xx="4" class="mt-4">
               <div class="top-right-button-container">
                 <b-button
+                  v-if="currentUser.roles !== 'Guest'"
                   id="ddown5"
                   size="lg"
                   variant="outline-success"
@@ -42,6 +44,7 @@
           </h1>
           <div class="top-right-button-container">
             <b-button
+              v-if="currentUser.roles !== 'Guest'"
               id="ddown5"
               size="lg"
               variant="outline-success"
@@ -235,7 +238,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["config"]),
+    ...mapGetters(["config", "currentUser"]),
   },
 };
 </script>

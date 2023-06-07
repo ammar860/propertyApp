@@ -144,13 +144,6 @@ const mutations = {
   // setSelectedProp(state, payload) {
   //   state.selectedProp = payload;
   // },
-  findProperty(state, payload) {
-    state.propertiesList.forEach((element) => {
-      if (element.id == payload) {
-        return element;
-      }
-    });
-  },
   clearState(state) {
     state.propertiesList = [];
     state.paginatedList = {
@@ -182,8 +175,15 @@ const actions = {
   // setSelectedProp({ commit }, payload) {
   //   commit("setSelectedProp", payload);
   // },
-  findProperty({ commit }, payload) {
-    let det = commit("findProperty", payload);
+  async getSingleProperty({ commit, state }, {payload, iv}) {
+    let res = state.propertiesList.forEach((element) => {
+      if (element.id === payload) {
+        return element;
+      }
+    });
+
+    let det = {...res, isValid:iv}
+
     return det;
   },
   async editPropertyById({ commit }, { pk, payload, config }) {

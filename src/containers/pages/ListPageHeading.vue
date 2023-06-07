@@ -124,7 +124,8 @@
             <div class="search-sm d-inline-block float-md-left mr-1 align-top">
               <b-input
                 :placeholder="$t('menu.search')"
-                @input="(val) => searchChange(val)"
+                @keypress.native.enter="search"
+                v-model="srchKey"
               />
             </div>
           </div>
@@ -188,6 +189,7 @@ export default {
   ],
   data() {
     return {
+      srchKey: "",
       sortOptions: [
         {
           column: "id",
@@ -263,6 +265,9 @@ export default {
       );
       }
     },
+    search() {
+      this.searchChange(this.srchKey);
+    }
   },
   computed: {
     ...mapGetters(["config", "currentUser"]),

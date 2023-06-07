@@ -2,7 +2,7 @@
   <div>
     <b-row>
       <b-colxx xxs="12">
-        <piaf-breadcrumb :heading="agencyName + '—' + $t('menu.settings')" />
+        <piaf-breadcrumb :heading="agencyID?agencyName:'Super Admin' + '—' + $t('menu.settings')" />
         <div class="separator mb-5"></div>
       </b-colxx>
     </b-row>

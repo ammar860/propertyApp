@@ -98,21 +98,6 @@ export default {
       return res;
     },
     signOut({ commit }) {
-      // let usr = {
-      //   "id": 0,
-      //   "role": 4,
-      //   "token": "",
-      //   "firstName": "",
-      //   "lastName": "",
-      //   "userName": "",
-      //   "userEmail": "",
-      //   "roles": "None",
-      //   "status": "Inactive",
-      //   "ImageUrl": null,
-      //   "Address": null,
-      //   "iat": null
-      // };
-      // commit("setUser", usr);
       commit("setLogout");
     },
   },

@@ -76,7 +76,7 @@ const routes = [
               import(
                 /* webpackChunkName: "piaf" */ "./views/app/second-menu/PropertyDetails"
               ),
-            meta: { loginRequired: true, roles: [UserRole.SuperAdmin, UserRole.Admin, UserRole.Agent, UserRole.Customer] },
+            meta: { loginRequired: true, roles: [UserRole.SuperAdmin, UserRole.Admin, UserRole.Agent, UserRole.Customer, UserRole.Guest] },
           },
         ],
       },

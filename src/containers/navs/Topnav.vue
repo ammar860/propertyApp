@@ -252,7 +252,6 @@ export default {
       // this.signOut().then(() => {
       //   this.$router.push("/user/login");
       // });
-
       this.$router.push("/user/login");
       this.signOut();
       this.setResetPb();

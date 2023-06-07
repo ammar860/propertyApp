@@ -36,13 +36,18 @@
           <div class="loading"></div>
         </b-card>
       </template>
-      <template v-else-if="requireReload == true">
+      <template v-else-if="requireReload === true">
         <b-card>
-          <div class="loading">
-            <i class="icon-Reload" />
-            <h3>Click here to reload!</h3>
+          <div>
+            <h3><i class="iconsmind-Information" /> Server Error! No data available</h3>
+            <p>Click on 'Reload' button to try again.</p>
           </div>
         </b-card>
+        <span class="d-flex justify-content-center mt-2">
+          <b-button variant="outline-info" @click="getPropertiesData()">
+            <i class="iconsminds-reload-2" /> Reload</b-button
+          >
+        </span>
       </template>
     </b-colxx>
   </b-row>
@@ -88,24 +93,19 @@ export default {
       this.isLoad = false;
 
       var user = this.currentUser;
-      var config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
 
       await axios
-        .get(apiUrl + "property", config)
+        .get(apiUrl + "property", this.config)
         .then((res) => {
           if (res.status == 200 || res.status == 201) {
             let propLst = _.sortBy(res.data, this.sort.column);
             console.log(propLst);
             console.log(user);
-            if (user.roles !== "SuperAdmin") {
+            if (user.roles !== "SuperAdmin" && "Guest") {
               this.items = propLst.filter(function (value, index, arr) {
                 return value.agencyId === user.agencyId;
               });
-            } else {
+            } else if (user.roles === "SuperAdmin") {
               this.items = propLst;
             }
             this.total = this.items.length;
@@ -130,8 +130,7 @@ export default {
             this.$notify(
               "Error",
               "Request made: Get all properties data!",
-              "Result: Data could not be fetched. Response sent: " + error.status ==
-                400 || 401
+              "Result: Data could not be fetched. Response sent: " + error.status === 401
                 ? "Access denied!"
                 : "Unexpected server error! Please try later.",
               {
@@ -146,7 +145,7 @@ export default {
           this.$notify(
             "Error",
             "Endpoint: Get all properties data",
-            "Result: " + error.status == 400 || 401
+            "Result: " + err.status === 401
               ? "Access denied!"
               : "Unexpected server error! Please try later.",
             {
@@ -164,15 +163,8 @@ export default {
       var _ = require("lodash");
       this.isLoad = false;
 
-      var user = this.currentUser;
-      var config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
       await axios
-        .get(apiUrl + "property", config)
+        .get(apiUrl + "property", this.config)
         .then((res) => {
           if (res.status == 200 || res.status == 201) {
             let propLst = _.sortBy(res.data, this.sort.column);
@@ -190,7 +182,7 @@ export default {
             this.$notify(
               "Error",
               "Endpoint: Get all properties data",
-              "Result: " + res.status == 400 || 401
+              "Result: " + res.status == 401
                 ? "Access denied!"
                 : "Unexpected server error! Please try later.",
               {
@@ -205,7 +197,7 @@ export default {
           this.$notify(
             "Error",
             "Endpoint: Get all properties data",
-            "Result: " + err.status == 400 || 401
+            "Result: " + err == 401
               ? "Access denied!"
               : "Unexpected server error! Please try later.",
             {
@@ -230,7 +222,11 @@ export default {
         currentPage: this.page,
       };
       this.from = 1;
-      this.to = 10;
+      if (this.total % 10 === 0) {
+        this.to = 10;
+      } else {
+        this.to = this.total % 10;
+      }
       this.$store.dispatch("onPaginationChange", data);
     },
     onPageChanged(page) {
@@ -245,13 +241,44 @@ export default {
     // },
     changeOrderBy(sort) {
       this.sort = sort;
-      let propLst = _.sortBy(this.items.ignoreCase, sort.column);
-      this.items = propLst;
+      let list = _.sortBy(this.items.ignoreCase, sort.column);
+      console.log(list);
       this.paginate(this.perPage, this.page - 1);
     },
     searchChange(val) {
       this.search = val;
-      this.page = 1;
+      if (!!this.search) {
+        this.isLoad = false;
+        const found = this.items.filter(({ title }) => this.search === title);
+        if (found.length === 0) {
+          this.isLoad = true;
+          this.$notify(
+            "Error",
+            "Endpoint: Search for property(s)",
+            "Result: '" + this.search + "' property name does not exist.",
+            {
+              permanent: false,
+              duration: 5000,
+              type: "error",
+            }
+          );
+        } else {
+          this.isLoad = true;
+          let page_number = this.perPage;
+          let page_size = 0;
+          this.paginatedItems = found.slice(
+            page_number * page_size,
+            (page_number + 1) * page_size
+          );
+          let data = {
+            properties: found,
+            currentPage: this.page,
+          };
+          this.$store.dispatch("onSearch", data);
+        }
+      } else {
+        this.getPropertiesData();
+      }
     },
 
     selectAll(isToggle) {
@@ -338,7 +365,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["currentUser"]),
+    ...mapGetters(["currentUser", "config"]),
     isSelectedAll() {
       return this.selectedItems.length >= this.items.length;
     },
