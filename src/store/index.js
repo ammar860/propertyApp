@@ -21,12 +21,12 @@ export default new Vuex.Store({
     changeLang(state, payload) {
       app.$i18n.locale = payload
       setCurrentLanguage(payload);
-    }
+    },
   },
   actions: {
     setLang({ commit }, payload) {
       commit('changeLang', payload)
-    }
+    },
   },
   modules: {
     menu,

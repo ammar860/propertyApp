@@ -216,7 +216,7 @@ export default {
   },
   methods: {
     ...mapMutations(["changeSideMenuStatus", "changeSideMenuForMobile"]),
-    ...mapActions(["setLang", "signOut"]),
+    ...mapActions(["setLang", "signOut", "setResetPb", "setResetPr", "setResetAg", "setResetAt"]),
     search() {
       this.$router.push(`${this.searchPath}?search=${this.searchKeyword}`);
       this.searchKeyword = "";
@@ -254,7 +254,11 @@ export default {
       // });
 
       this.$router.push("/user/login");
-      this.signOut;
+      this.signOut();
+      this.setResetPb();
+      this.setResetPr();
+      this.setResetAt();
+      this.setResetAg();
     },
 
     toggleFullScreen() {

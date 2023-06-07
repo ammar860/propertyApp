@@ -107,7 +107,7 @@ const mutations = {
     
     state.menuType = nextClasses
     state.clickCount = 0
-  }
+  },
 }
 
 const actions = {}

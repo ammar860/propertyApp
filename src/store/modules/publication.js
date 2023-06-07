@@ -16,6 +16,9 @@ const mutations = {
   deletePublicationItem(state,payload) {
     var _ = require("lodash");
     state.publicationsList = _.reject(state.publicationsList, function(el) {return el.id === payload});
+  },
+  clearState(state) {
+    state.publicationsList = []
   }
   //   setPublishItem(state, payload) {
   //     state.publicationsList[payload.id].ft = ;
@@ -64,6 +67,9 @@ const actions = {
       commit("deletePublicationItem", pk);
     }
     return res;
+  },
+  setResetPb({commit}) {
+    commit("clearState");
   }
 };
 

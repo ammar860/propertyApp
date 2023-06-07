@@ -131,7 +131,7 @@ const state = {
 const getters = {
   propertiesList: (state) => state.propertiesList,
   paginatedList: (state) => state.paginatedList,
-  selectedProp: (state) => state.selectedProp,
+  // selectedProp: (state) => state.selectedProp,
 };
 
 const mutations = {
@@ -139,7 +139,7 @@ const mutations = {
     state.propertiesList = payload;
   },
   setPaginatedList(state, payload) {
-    state.paginatedList = payload
+    state.paginatedList = payload;
   },
   // setSelectedProp(state, payload) {
   //   state.selectedProp = payload;
@@ -150,6 +150,13 @@ const mutations = {
         return element;
       }
     });
+  },
+  clearState(state) {
+    state.propertiesList = [];
+    state.paginatedList = {
+      properties: [],
+      currentPage: 1,
+    };
   },
   // editMFetSelProp(state, payload) {
   //   state.selectedProp.mainFeatures = payload;
@@ -189,11 +196,11 @@ const actions = {
 
       return res;
     } else if (pk.length > 1 && pk.length <= 10) {
-      const res = []
+      const res = [];
       pk.forEach(async (item) => {
         tmp = await axios.delete(apiUrl + "property/" + item, config);
         res.push({ ...tmp });
-      })
+      });
 
       return res;
     }
@@ -246,10 +253,7 @@ const actions = {
     );
     return res;
   },
-  async updatePropertyFeatureNFurnishing(
-    { commit },
-    { pk, payload, config }
-  ) {
+  async updatePropertyFeatureNFurnishing({ commit }, { pk, payload, config }) {
     const res = await axios.post(
       apiUrl + "property/createFurnishingFeature/" + pk,
       payload,
@@ -292,14 +296,22 @@ const actions = {
   },
   async UpdatePropertyImage({ commit }, { pk, payload, config }) {
     const res = await axios.post(
-      apiUrl + "images/UpdatePostion",payload,
+      apiUrl + "images/UpdatePostion",
+      payload,
       config
     );
     return res;
   },
   async updatePublicationStatus({ commit }, { pk, ps, config }) {
-    const res = await axios.patch(apiUrl + "property/updatePublicationStatus/" + pk + "/" + ps, {}, config);
+    const res = await axios.patch(
+      apiUrl + "property/updatePublicationStatus/" + pk + "/" + ps,
+      {},
+      config
+    );
     return res;
+  },
+  setResetPr({commit}) {
+    commit("clearState");
   }
   // async updateMFetProp({ commit }, payload) {
   //   let user = getCurrentUser();

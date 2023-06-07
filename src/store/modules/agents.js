@@ -47,6 +47,11 @@ const mutations = {
     state.responseAG = payload;
     console.log(state.responseAG);
     state.processingAgent = false;
+  },
+  clearState(state) {
+    state.agentsList = [];
+    state.processingAgent = false;
+    state.responseAG = {};
   }
 };
 
@@ -116,6 +121,9 @@ const actions = {
         console.log(err);
       });
   },
+  setResetAt({commit}) {
+    commit("clearState");
+  }
 };
 
 export default {

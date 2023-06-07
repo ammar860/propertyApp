@@ -31,6 +31,10 @@ const mutations = {
   },
   setProcessingAgency(state, payload) {
     state.processingAgency = payload;
+  },
+  clearState(state) {
+    state.agenciesList = [];
+    state.processingAgency = false;
   }
 };
 
@@ -95,6 +99,9 @@ const actions = {
       .catch((err) => {
         console.log(err);
       });
+  },
+  setResetAg({commit}) {
+    commit("clearState");
   }
 };
 
