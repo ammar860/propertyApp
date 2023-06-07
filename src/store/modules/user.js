@@ -72,7 +72,7 @@ export default {
           token: token,
           ...data,
         };
-        console.log(item.role);
+        // console.log(item.role);
         if (item.role == UserRole.Admin) {
           let config = {
             headers: {
@@ -81,7 +81,7 @@ export default {
           };
           const res1 = await axios.get(apiUrl + "users/findUser/" + id, config);
           let agencyId = res1.data.agencyId;
-          console.log(res1);
+          // console.log(res1);
           const res2 = await axios.get(
             apiUrl + "agency/findAgency/" + agencyId,
             config
@@ -99,8 +99,18 @@ export default {
     },
     signOut({ commit }) {
       let usr = {
-        title: "None",
-        roles: "None",
+        "id": 0,
+        "role": 4,
+        "token": "",
+        "firstName": "",
+        "lastName": "",
+        "userName": "",
+        "userEmail": "",
+        "roles": "None",
+        "status": "Inactive",
+        "ImageUrl": null,
+        "Address": null,
+        "iat": null
       };
       commit("setUser", usr);
       commit("setLogout");

@@ -194,12 +194,6 @@ export default {
       },
     };
   },
-  async mounted() {
-    await this.setAgents({
-      config: this.config,
-      user: this.currentUser,
-    });
-  },
   async updated() {
     this.$root.$on('bv::modal::hide', await function(e) {
       this.setAgents({
@@ -210,7 +204,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      setAgents: "setAgents",
+      setAgents: "setCompanyAgents",
       deleteAgent: "deleteAgent",
     }),
     async deleteUser(data, index) {

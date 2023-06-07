@@ -249,9 +249,12 @@ export default {
       this.setLang(locale);
     },
     logout() {
-      this.signOut().then(() => {
-        this.$router.push("/user/login");
-      });
+      // this.signOut().then(() => {
+      //   this.$router.push("/user/login");
+      // });
+
+      this.$router.push("/user/login");
+      this.signOut;
     },
 
     toggleFullScreen() {

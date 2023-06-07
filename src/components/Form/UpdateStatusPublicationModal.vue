@@ -6,7 +6,7 @@
       title="Edit Status and Publishings"
       modal-class="modal-right"
     >
-      <template v-if="item">
+      <template v-if="item && currentUser.role !== 0">
         <b-form>
           <b-form-checkbox
             v-for="data in item.setting"
@@ -32,6 +32,9 @@
           </b-form-group>
         </b-form>
       </template>
+      <template v-else>
+        <h4>How to enable edit:</h4> <p style="text-align:justify;"> Login with the desired company account to update Status and Publications as Super Admin cannot update it.</p>
+      </template>
 
       <template slot="modal-footer">
         <b-button
@@ -39,7 +42,7 @@
           @click="hideModal('editStatusPublicationModal')"
           >Cancel</b-button
         >
-        <b-button variant="primary" @click.prevent="update()" class="mr-1">Save</b-button>
+        <b-button v-if="currentUser.role !== 0" variant="primary" @click.prevent="update()" class="mr-1">Save</b-button>
       </template>
     </b-modal>
   </div>
@@ -55,6 +58,7 @@ export default {
   data() {
     return {
       status: true,
+      hosts: [],
       availList: [
         { value: "Online", text: "Online" },
         { value: "Offline", text: "Offline" },
@@ -91,7 +95,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["config"]),
+    ...mapGetters(["config", "currentUser"]),
   },
 };
 </script>

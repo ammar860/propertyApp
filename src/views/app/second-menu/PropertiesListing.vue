@@ -53,7 +53,7 @@ import axios from "axios";
 import { apiUrl } from "../../../constants/config";
 import ListPageHeading from "../../../containers/pages/ListPageHeading";
 import ListPageListing from "../../..//containers/pages/ListPageListing";
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "PropertiesListing",
   components: {
@@ -99,7 +99,15 @@ export default {
         .then((res) => {
           if (res.status == 200 || res.status == 201) {
             let propLst = _.sortBy(res.data, this.sort.column);
-            this.items = propLst;
+            console.log(propLst);
+            console.log(user);
+            if (user.roles !== "SuperAdmin") {
+              this.items = propLst.filter(function (value, index, arr) {
+                return value.agencyId === user.agencyId;
+              });
+            } else {
+              this.items = propLst;
+            }
             this.total = this.items.length;
             this.$store.dispatch("setProperties", this.items);
             this.selectedItems = [];
@@ -122,10 +130,10 @@ export default {
             this.$notify(
               "Error",
               "Request made: Get all properties data!",
-              "Result: Data could not be fetched. Response sent: " + error.status == 400 ||
-            401
-            ? "Access denied!"
-            : "Unexpected server error! Please try later.",
+              "Result: Data could not be fetched. Response sent: " + error.status ==
+                400 || 401
+                ? "Access denied!"
+                : "Unexpected server error! Please try later.",
               {
                 permanent: false,
                 duration: 5000,
@@ -138,10 +146,9 @@ export default {
           this.$notify(
             "Error",
             "Endpoint: Get all properties data",
-            "Result: " + error.status == 400 ||
-            401
-            ? "Access denied!"
-            : "Unexpected server error! Please try later.",
+            "Result: " + error.status == 400 || 401
+              ? "Access denied!"
+              : "Unexpected server error! Please try later.",
             {
               permanent: false,
               duration: 5000,
@@ -183,10 +190,9 @@ export default {
             this.$notify(
               "Error",
               "Endpoint: Get all properties data",
-              "Result: " + res.status == 400 ||
-            401
-            ? "Access denied!"
-            : "Unexpected server error! Please try later.",
+              "Result: " + res.status == 400 || 401
+                ? "Access denied!"
+                : "Unexpected server error! Please try later.",
               {
                 permanent: false,
                 duration: 5000,
@@ -199,10 +205,9 @@ export default {
           this.$notify(
             "Error",
             "Endpoint: Get all properties data",
-            "Result: " + err.status == 400 ||
-            401
-            ? "Access denied!"
-            : "Unexpected server error! Please try later.",
+            "Result: " + err.status == 400 || 401
+              ? "Access denied!"
+              : "Unexpected server error! Please try later.",
             {
               permanent: false,
               duration: 5000,

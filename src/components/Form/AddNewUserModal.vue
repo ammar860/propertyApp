@@ -130,7 +130,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      setAgents: "setAgents",
+      setAgents: "setCompanyAgents",
       createAgent: "createAgent",
     }),
     async addUser() {

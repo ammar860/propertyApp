@@ -221,11 +221,6 @@ export default {
         });
     }
   },
-  async mounted() {
-    this.setAgencies({
-      config: this.config,
-    });
-  },
   methods: {
     ...mapActions({ 
       setAgencies: "setAgencies",

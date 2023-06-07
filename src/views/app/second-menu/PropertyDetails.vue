@@ -172,7 +172,7 @@ export default {
               permanent: false,
             }
           );
-          this.$store.dispatch("setSelectedProp", this.details);
+          // this.$store.dispatch("setSelectedProp", this.details);
 
         } else if (res.status == 200 && !this.details) {
           this.$notify(

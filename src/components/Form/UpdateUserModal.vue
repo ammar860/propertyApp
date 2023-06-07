@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      setAgents:"setAgents",
+      setAgents:"setCompanyAgents",
       updateAgent: "updateAgent"
     }),
     async updateUser() {

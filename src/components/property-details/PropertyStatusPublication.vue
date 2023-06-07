@@ -27,7 +27,7 @@
         <edit-stat-modal :item="stats" @updateData="updateData" />
       </b-row>
     </template>
-    <template v-if="publicationsList === []">
+    <template v-if="property.Publishing.length === 0">
       <b-row class="m-1">
         <h4
           @mouseover="isHovering = true"
@@ -45,16 +45,18 @@
     </template>
     <template v-else>
       <b-card-text>
-        <b-row v-for="data in publicationsList" :key="data.id">
+        <b-row v-for="data in stats.setting" :key="data.id">
           <b-col
             ><p>Publication on {{ data.hostname }}</p></b-col
-          ><b-col
-            ><p>
-              <i
-                class="simple-icon-check"
-                style="color: green; font-size: large; font-weight: 700"
-              /></p
-          ></b-col>
+          >
+          <!-- <b-col -->
+            <!-- ><p> -->
+              <!-- <i -->
+                <!-- class="simple-icon-check" -->
+                <!-- style="color: green; font-size: large; font-weight: 700" -->
+              <!-- /></p -->
+          <!-- ></b-col> -->
+
         </b-row>
         <b-row>
           <b-col><p>Status</p></b-col>

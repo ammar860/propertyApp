@@ -51,7 +51,7 @@ const mutations = {
 };
 
 const actions = {
-  async setAgents({ commit }, {config, user}) {
+  async setCompanyAgents({ commit }, {config, user}) {
     commit("setProcessingAgent", true);
     await axios.get(apiUrl + "users/findallUsers", config).then((res) => {
       if (res.status == 200) {
