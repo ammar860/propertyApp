@@ -58,10 +58,12 @@ const mutations = {
 const actions = {
   async setCompanyAgents({ commit }, {config, user}) {
     commit("setProcessingAgent", true);
+    var _ = require("lodash");
     await axios.get(apiUrl + "users/findallUsers", config).then((res) => {
       if (res.status == 200) {
         if (user.role == UserRole.SuperAdmin) {
-          commit("setAllAgents", res.data);
+          let data = _.sortBy(res.data, "agencyId")
+          commit("setAllAgents", data);
         } else if (user.role == UserRole.Admin) {
           let ls = [];
           res.data.forEach((element) => {

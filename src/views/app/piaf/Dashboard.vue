@@ -36,41 +36,53 @@ export default {
   },
   data() {
     return {
+      // loading: false,
+      set: [],
     };
   },
   async mounted() {
     try {
-      await this.agencySet({
-        config: this.config,
-      });
-      await this.agentSet({
-        config: this.config,
-        user: this.currentUser,
-      });
       const res = await this.getSettings({
         config: this.config,
       });
-      if (this.currentUser.role !== 0 && (res.status == 200 || 201)) {
-        var settings = [];
-        var getLocation = function (href) {
-          var l = document.createElement("a");
-          l.href = href;
-          return l;
-        };
+      console.log(res);
+      if (this.currentUser.role !== 0 && res.status === 200) {
         res.data.forEach((element) => {
-          if (element.agencyId == this.agencyID) {
+          if (element.agencyId === this.currentUser.agencyId) {
             let l = getLocation(element.ftpHost);
             let ln = l.hostname;
             let el = {
               ...element,
               hostname: ln.substring(0, ln.indexOf(".")),
             };
-            settings.push(el);
+            this.set.push(el);
           }
         });
-        this.$store.dispatch("setPublishList", this.settings);
+        this.setSettings({
+          payload: this.set,
+        });
+      } else if (this.currentUser.role === 0 && res.status === 200) {
+        res.data.forEach((element) => {
+          let l = this.getLocation(element.ftpHost);
+          let ln = l.hostname;
+          let el = {
+            ...element,
+            hostname: ln.substring(0, ln.indexOf(".")),
+          };
+          this.set.push(el);
+        });
+        this.setSettings({
+          payload: this.set,
+        });
       }
-    } catch(e) {
+      this.agencySet({
+        config: this.config,
+      });
+      this.agentSet({
+        config: this.config,
+        user: this.currentUser,
+      });
+    } catch (e) {
       console.log(e);
     }
   },
@@ -79,7 +91,13 @@ export default {
       agencySet: "setAgencies",
       agentSet: "setCompanyAgents",
       getSettings: "getPublishing",
+      setSettings: "setPublishList",
     }),
+    getLocation(href) {
+      var l = document.createElement("a");
+      l.href = href;
+      return l;
+    },
   },
 };
 </script>

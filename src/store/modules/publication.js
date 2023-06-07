@@ -26,11 +26,12 @@ const mutations = {
 };
 
 const actions = {
-  async getPublishing({ commit }, { config }) {
+  async getPublishing({ commit }, { config,  }) {
     const res = await axios.get(apiUrl + "publishings", config);
+
     return res;
   },
-  setPublishList({ commit }, payload) {
+  setPublishList({ commit }, { payload }) {
     commit("setPublicationsList", payload);
   },
   async publishAll({ commit }, { pk, config }) {
