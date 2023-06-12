@@ -104,7 +104,7 @@ export default {
   watch: {
     item(value) {
       this.listImages = value;
-      console.log(value);
+      // console.log(value);
     },
     id(value) {
       this.propertyId = value;
