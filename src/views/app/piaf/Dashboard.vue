@@ -49,7 +49,7 @@ export default {
       if (this.currentUser.role !== 0 && res.status === 200) {
         res.data.forEach((element) => {
           if (element.agencyId === this.currentUser.agencyId) {
-            let l = getLocation(element.ftpHost);
+            let l = this.getLocation(element.ftpHost);
             let ln = l.hostname;
             let el = {
               ...element,

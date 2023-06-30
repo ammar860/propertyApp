@@ -27,11 +27,11 @@
       <div
         class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
       >
+        <!-- <router-link :to="`/app/second-menu/PropertyDetails?p=${data.id}`" class="d-flex">
+         <img :src="" class="list-thumbnail responsive border-0" :alt="data.title" />
+        </router-link> -->
         <router-link :to="`/app/second-menu/PropertyDetails?p=${data.id}`" class="d-flex">
-          <!-- <img :src="" class="list-thumbnail responsive border-0" :alt="data.title" /> -->
-        </router-link>
-        <router-link :to="`/app/second-menu/PropertyDetails?p=${data.id}`" class="w-40 w-sm-100">
-          <p class="text-small mb-0 truncate" style="color: #4556ac">
+          <p class="mb-0 text-muted text-small w-15 w-sm-100" style="color: #4556ac">
             {{ data.title }}
           </p>
         </router-link>

@@ -33,20 +33,12 @@
                 </b-colxx>
                 <b-colxx
                   xxs="6"
-                  style="
-                    display: flex;
-                    justify-content: flex-end;
-                    padding-bottom: 1rem;
-                  "
+                  style="display: flex; justify-content: flex-end; padding-bottom: 1rem"
                 >
                   <b-button variant="success" v-b-modal.modalright>
                     <i
                       class="iconsminds-add-user"
-                      style="
-                        padding-inline: 0.5rem;
-                        top: 1px;
-                        position: relative;
-                      "
+                      style="padding-inline: 0.5rem; top: 1px; position: relative"
                     ></i
                     >Create User</b-button
                   >
@@ -182,31 +174,37 @@ export default {
         agencyId: Number,
         userId: Number,
         data: {
-            email: String,
-            firstName: String,
-            lastName: String,
-            userName:String,
-            description: String,
-            contact: Number,
-            status: String,
-            roles: String,
-          }
+          email: String,
+          firstName: String,
+          lastName: String,
+          userName: String,
+          description: String,
+          contact: Number,
+          status: String,
+          roles: String,
+        },
       },
     };
   },
-  async updated() {
-    this.$root.$on('bv::modal::hide', await function(e) {
-      this.setAgents({
-        config: this.config,
-        user: this.currentUser,
-      });
-    });
-  },
+  // async updated() {
+  //   this.updateAgents();
+  // },
   methods: {
     ...mapActions({
       setAgents: "setCompanyAgents",
       deleteAgent: "deleteAgent",
     }),
+    async updateAgents() {
+      this.$root.$on(
+        "bv::modal::hide",
+        function (e) {
+          this.setAgents({
+            config: this.config,
+            user: this.currentUser,
+          });
+        }
+      );
+    },
     async deleteUser(data, index) {
       let payload = {
         data,
@@ -260,5 +258,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

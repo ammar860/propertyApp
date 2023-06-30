@@ -7,14 +7,38 @@
       modal-class="modal-right"
     >
       <b-form>
-        <b-form-group label="Agency">
+        <!-- <b-form-group label="Agency">
           <b-form-select v-model="item.agencyId" disabled>
-            <template #first> </template>
+            <template #first>
+              <b-form-select-option
+                v-for="agency in agenciesList"
+                :key="agency.id"
+                :value="agency.id"
+                disabled
+                >{{ agency.name }}</b-form-select-option
+              >
+            </template>
+          </b-form-select>
+        </b-form-group> -->
+        <b-form-group label="Agency">
+          <b-form-input
+            v-if="currentUser.role == UserRole.Admin"
+            :placeholder="currentUser.agencyName"
+            disabled
+          ></b-form-input>
+          <b-form-select
+            v-else-if="currentUser.role == UserRole.SuperAdmin"
+            v-model="newItem.agencyID"
+          >
+            <template #first>
+              <b-form-select-option value="" default
+                >-- Please select an option --</b-form-select-option
+              >
+            </template>
             <b-form-select-option
               v-for="agency in agenciesList"
               :key="agency.id"
               :value="agency.id"
-              disabled
               >{{ agency.name }}</b-form-select-option
             >
           </b-form-select>
@@ -67,6 +91,8 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { UserRole } from "../../utils/auth.roles";
+
 export default {
   name: "UpdateUserModal",
   computed: {
@@ -83,18 +109,19 @@ export default {
         { value: "Agent", text: "Agent" },
         { value: "Customer", text: "Customer" },
       ],
+      UserRole,
     };
   },
   methods: {
     ...mapActions({
-      setAgents:"setCompanyAgents",
-      updateAgent: "updateAgent"
+      setAgents: "setCompanyAgents",
+      updateAgent: "updateAgent",
     }),
     async updateUser() {
       await this.updateAgent({
         payload: this.$props.item,
         config: this.config,
-      })
+      });
       this.$nextTick(() => {
         this.setAgents({
           config: this.config,
